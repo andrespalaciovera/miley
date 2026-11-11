@@ -1,0 +1,144 @@
+/**
+ * Component: Subscription Toggle & Cadence Selector
+ * Tokenized styles conforming to Figma Skins 1 & 2
+ */
+
+subscription-toggle {
+  display: block;
+  width: 100%;
+  margin-bottom: var(--space-lg);
+  border-top: var(--stroke-hairline) solid var(--border-default);
+  border-bottom: var(--stroke-hairline) solid var(--border-default);
+  padding: var(--space-md) 0;
+}
+
+.subscription-toggle__segmented-control {
+  display: flex;
+  gap: var(--space-xxs);
+  padding: var(--space-xxs);
+  background-color: var(--color-secondary);
+  border-radius: var(--radius-full);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+[data-skin="skin-2"] .subscription-toggle__segmented-control {
+  background-color: var(--surface-subtle);
+  border: var(--stroke-hairline) solid var(--border-default);
+}
+
+.subscription-tab {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-full);
+  border: none;
+  background: transparent;
+  color: var(--text-on-secondary);
+  font-family: var(--font-body);
+  font-size: var(--body-size);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+  white-space: nowrap;
+}
+
+[data-skin="skin-2"] .subscription-tab {
+  color: var(--text-primary);
+}
+
+.subscription-tab--active {
+  background-color: var(--color-primary);
+  color: var(--text-on-primary);
+  box-shadow: var(--shadow-subtle);
+  font-weight: 600;
+}
+
+[data-skin="skin-2"] .subscription-tab--active {
+  background-color: var(--color-primary);
+  color: var(--text-on-primary);
+}
+
+.subscription-toggle__frequency-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.subscription-toggle__frequency-section[hidden] {
+  display: none;
+}
+
+.subscription-frequency__grid {
+  display: flex;
+  gap: var(--space-xs);
+  width: 100%;
+}
+
+.frequency-tile {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 72px;
+  padding: var(--space-sm);
+  background-color: var(--bg-main);
+  border: var(--stroke-hairline) solid var(--border-default);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  box-shadow: var(--shadow-subtle);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.frequency-tile:hover {
+  border-color: var(--color-secondary);
+}
+
+.frequency-tile--selected {
+  border: var(--stroke-emphasis) solid var(--border-selected);
+}
+
+.frequency-tile__prefix {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  line-height: var(--label-line-height);
+  color: var(--text-muted);
+  letter-spacing: var(--label-letter-spacing);
+  white-space: nowrap;
+}
+
+.frequency-tile__value {
+  font-family: var(--font-heading);
+  font-size: var(--h4-size);
+  line-height: var(--h4-line-height);
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  margin-top: 2px;
+}
+
+.subscription-toggle__reassurance {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  color: var(--text-primary);
+  letter-spacing: var(--label-letter-spacing);
+}
+
+.subscription-toggle__reassurance svg {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  fill: currentColor;
+}

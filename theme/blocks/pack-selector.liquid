@@ -1,0 +1,114 @@
+{% doc %}
+  Renders the Multi-Pack Economics Selector block.
+  Implements SDD v1.2.0 Zone 2 and Section 9.1 CRO in-customizer benchmark advice.
+  Emits 'theme:variant:change' through <pack-selector> custom element.
+{% enddoc %}
+
+{{ 'component-pack-selector.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'component-pack-selector.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign tier_2_badge = block.settings.tier_2_badge | default: 'products.pack_selector.most_popular' | t
+  assign show_per_serving = block.settings.show_per_serving_price
+-%}
+
+{%- if product.variants.size > 1 -%}
+  <pack-selector
+    class="pack-selector"
+    data-product-id="{{ product.id }}"
+    {{ block.shopify_attributes }}
+  >
+    <div class="pack-selector__header">
+      <span class="pack-selector__title">{{ 'products.select_quantity' | t }}</span>
+    </div>
+
+    <div class="pack-selector__grid" role="group" aria-label="{{ 'products.select_quantity' | t }}">
+      {%- for variant in product.variants -%}
+        {%- liquid
+          assign is_selected = false
+          if variant.id == current_variant.id
+            assign is_selected = true
+          endif
+
+          assign savings_pct = null
+          if variant.compare_at_price and variant.compare_at_price > variant.price
+            assign savings_diff = variant.compare_at_price | minus: variant.price
+            assign savings_pct = savings_diff | times: 100.0 | divided_by: variant.compare_at_price | round
+          endif
+        -%}
+
+        <button
+          type="button"
+          class="pack-tile{% if is_selected %} pack-tile--selected{% endif %}"
+          data-variant-id="{{ variant.id }}"
+          data-price="{{ variant.price }}"
+          data-compare-at-price="{{ variant.compare_at_price | default: '' }}"
+          aria-pressed="{% if is_selected %}true{% else %}false{% endif %}"
+        >
+          {%- if forloop.index == 2 and tier_2_badge != blank -%}
+            <span class="pack-tile__floating-badge">{{ tier_2_badge }}</span>
+          {%- elsif variant.metafields.custom.badge != blank -%}
+            <span class="pack-tile__floating-badge">{{ variant.metafields.custom.badge.value }}</span>
+          {%- endif -%}
+
+          <span class="pack-tile__name">{{ variant.title }}</span>
+
+          <div class="pack-tile__price-group">
+            <span class="pack-tile__price">{{ variant.price | money }}</span>
+
+            {%- if show_per_serving -%}
+              <span class="pack-tile__unit-price">
+                {%- if variant.metafields.custom.unit_servings != blank and variant.metafields.custom.unit_servings.value > 0 -%}
+                  {{ variant.price | divided_by: variant.metafields.custom.unit_servings.value | money }}{{ 'products.pack_selector.per_serving' | t }}
+                {%- elsif product.metafields.custom.unit_servings != blank and product.metafields.custom.unit_servings.value > 0 -%}
+                  {{ variant.price | divided_by: product.metafields.custom.unit_servings.value | money }}{{ 'products.pack_selector.per_serving' | t }}
+                {%- else -%}
+                  {{ variant.price | money }}{{ 'products.pack_selector.per_unit' | t }}
+                {%- endif -%}
+              </span>
+            {%- endif -%}
+          </div>
+
+          {%- if savings_pct != null and savings_pct > 0 -%}
+            <span class="pack-tile__bottom-badge">{{ 'products.pack_selector.save' | t: percent: savings_pct }}</span>
+          {%- elsif forloop.first -%}
+            <span class="pack-tile__bottom-badge pack-tile__bottom-badge--standard">{{ 'products.pack_selector.standard' | t }}</span>
+          {%- else -%}
+            <span class="pack-tile__bottom-badge">{{ 'products.pack_selector.best_value' | t }}</span>
+          {%- endif -%}
+        </button>
+      {%- endfor -%}
+    </div>
+  </pack-selector>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:general.pack_selector",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:cro.headers.pack_economics"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:cro.paragraphs.pack_economics"
+    },
+    {
+      "type": "text",
+      "id": "tier_2_badge",
+      "label": "t:cro.labels.tier_2_badge",
+      "default": "Popular",
+      "info": "t:cro.infos.tier_2_badge"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_per_serving_price",
+      "label": "t:cro.labels.show_per_serving_price",
+      "default": true,
+      "info": "t:cro.infos.show_per_serving_price"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,101 @@
+{% doc %}
+  Renders the Subscription Wrapper & Frequency Selector block.
+  Implements SDD v1.2.0 Zone 2 and Section 9.2 CRO zero-friction subscription strategy.
+  Emits 'theme:subscription:change' through <subscription-toggle> custom element.
+{% enddoc %}
+
+{{ 'component-subscription.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'component-subscription.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign has_plans = false
+  if product.selling_plan_groups.size > 0
+    assign has_plans = true
+  endif
+
+  assign sub_badge = block.settings.sub_discount_badge | default: 'products.subscription.subscribe_save' | t
+  assign reassurance_text = block.settings.cancellation_reassurance | default: 'products.subscription.reassurance' | t
+-%}
+
+{%- if has_plans -%}
+  <subscription-toggle
+    class="subscription-toggle"
+    data-product-id="{{ product.id }}"
+    {{ block.shopify_attributes }}
+  >
+    <div class="subscription-toggle__segmented-control" role="tablist">
+      <button
+        type="button"
+        class="subscription-tab subscription-tab--active"
+        data-mode="onetime"
+        role="tab"
+        aria-selected="true"
+      >
+        {{ 'products.subscription.one_time' | t }}
+      </button>
+
+      <button
+        type="button"
+        class="subscription-tab"
+        data-mode="subscribe"
+        role="tab"
+        aria-selected="false"
+      >
+        {{ sub_badge }}
+      </button>
+    </div>
+
+    <div class="subscription-toggle__frequency-section" hidden>
+      <div class="subscription-frequency__grid" role="group" aria-label="{{ 'products.subscription.every' | t }}">
+        {%- assign first_group = product.selling_plan_groups.first -%}
+        {%- for plan in first_group.selling_plans -%}
+          <button
+            type="button"
+            class="frequency-tile{% if forloop.first %} frequency-tile--selected{% endif %}"
+            data-plan-id="{{ plan.id }}"
+            aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
+          >
+            <span class="frequency-tile__prefix">{{ 'products.subscription.every' | t }}</span>
+            <span class="frequency-tile__value">{{ plan.name }}</span>
+          </button>
+        {%- endfor -%}
+      </div>
+
+      <div class="subscription-toggle__reassurance">
+        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path d="M8 1a3.5 3.5 0 0 0-3.5 3.5V6H3.5A1.5 1.5 0 0 0 2 7.5v6A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5v-6A1.5 1.5 0 0 0 12.5 6h-1V4.5A3.5 3.5 0 0 0 8 1zm2 5H6V4.5a2 2 0 1 1 4 0V6z"/>
+        </svg>
+        <span>{{ reassurance_text }}</span>
+      </div>
+    </div>
+  </subscription-toggle>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:general.subscription_toggle",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:cro.headers.subscription"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:cro.paragraphs.subscription"
+    },
+    {
+      "type": "text",
+      "id": "sub_discount_badge",
+      "label": "t:cro.labels.sub_discount_badge",
+      "default": "Subscribe & Save 15%",
+      "info": "t:cro.infos.sub_discount_badge"
+    },
+    {
+      "type": "text",
+      "id": "cancellation_reassurance",
+      "label": "t:cro.labels.cancellation_reassurance",
+      "default": "Auto-renews, cancel anytime"
+    }
+  ]
+}
+{% endschema %}

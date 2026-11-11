@@ -1,0 +1,70 @@
+{% doc %}
+  Renders the Sticky Add-to-Cart bar.
+  Implements SDD v1.2.0 Zone 2 mobile persistent conversion bar.
+  Slides into view when primary CTA scrolls past the viewport.
+{% enddoc %}
+
+{{ 'component-sticky-atc.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'component-sticky-atc.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+-%}
+
+<sticky-add-to-cart
+  data-product-id="{{ product.id }}"
+  data-initial-variant-id="{{ current_variant.id }}"
+  data-initial-price="{{ current_variant.price }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="sticky-atc__inner">
+    {%- if product.featured_image -%}
+      <div class="sticky-atc__media">
+        <img
+          src="{{ product.featured_image | image_url: width: 96 }}"
+          alt="{{ product.featured_image.alt | default: product.title | escape }}"
+          width="48"
+          height="48"
+          loading="lazy"
+          data-sticky-image
+        >
+      </div>
+    {%- endif -%}
+
+    <div class="sticky-atc__info">
+      <div class="sticky-atc__title-row">
+        <span class="sticky-atc__title" data-sticky-title>{{ current_variant.title }}</span>
+        <button type="button" class="sticky-atc__edit-btn" data-sticky-edit>{{ 'products.edit' | t }}</button>
+      </div>
+    </div>
+
+    <div class="sticky-atc__action-group">
+      <div class="sticky-atc__price-box">
+        <span class="sticky-atc__price-label">{{ 'products.total' | t }}</span>
+        <span class="sticky-atc__price-value" data-sticky-price>{{ current_variant.price | money }}</span>
+      </div>
+
+      <button
+        type="button"
+        class="sticky-atc__btn"
+        data-sticky-atc-btn
+        data-label-atc="{{ 'products.add_to_cart' | t }}"
+        data-label-sold-out="{{ 'products.sold_out' | t }}"
+        {% unless current_variant.available %}disabled{% endunless %}
+      >
+        {%- if current_variant.available -%}
+          {{ 'products.add_to_cart' | t }}
+        {%- else -%}
+          {{ 'products.sold_out' | t }}
+        {%- endif -%}
+      </button>
+    </div>
+  </div>
+</sticky-add-to-cart>
+
+{% schema %}
+{
+  "name": "t:general.sticky_add_to_cart",
+  "settings": []
+}
+{% endschema %}

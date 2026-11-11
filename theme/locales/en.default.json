@@ -61,6 +61,48 @@
     "password": "Password",
     "enter": "Enter"
   },
+  "products": {
+    "add_to_cart": "Add to cart",
+    "sold_out": "Sold out",
+    "unavailable": "Unavailable",
+    "select_quantity": "Select quantity",
+    "quantity": "Quantity",
+    "total": "TOTAL",
+    "edit": "Edit",
+    "pack_selector": {
+      "standard": "Standard",
+      "popular": "Popular",
+      "most_popular": "Most Popular",
+      "best_value": "Best Value",
+      "per_unit": "/ea",
+      "per_serving": "/ cup",
+      "save": "Save {{ percent }}%"
+    },
+    "subscription": {
+      "one_time": "One-Time",
+      "subscribe_save": "Subscribe & Save",
+      "every": "Every",
+      "weeks": "{{ count }} weeks",
+      "month": "1 month",
+      "reassurance": "Auto-renews, cancel anytime"
+    },
+    "telemetry": {
+      "roast_level": "Roast Level",
+      "elevation": "Elevation",
+      "process": "Process",
+      "variety": "Variety",
+      "cupping_profile": "Cupping Profile",
+      "acidity": "Acidity",
+      "sweetness": "Sweetness",
+      "body": "Body",
+      "clean_cup": "Clean Cup",
+      "finish": "Finish",
+      "brewing_guide": "Brewing Guide",
+      "ingredients": "Ingredients",
+      "allergens": "Allergens",
+      "shipping_info": "Shipping info"
+    }
+  },
   "search": {
     "title": "Search",
     "placeholder": "Search articles, pages, or products",

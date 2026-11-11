@@ -31,7 +31,13 @@
     "settings": "Settings",
     "sidebar": "Sidebar",
     "theme": "Theme",
-    "typography": "Typography"
+    "typography": "Typography",
+    "pack_selector": "Multi-Pack Selector",
+    "subscription_toggle": "Subscription Wrapper",
+    "sticky_add_to_cart": "Sticky Add-to-Cart",
+    "roaster_telemetry": "Roaster Telemetry",
+    "sensory_radar": "Sensory Radar",
+    "brewing_recipes": "Brewing Recipes"
   },
   "labels": {
     "alignment": "Alignment",
@@ -80,15 +86,30 @@
   "cro": {
     "title": "CRO Strategy & Conversion",
     "headers": {
-      "cart_gamification": "💡 CRO Strategy: Tiered Milestone Gamification"
+      "cart_gamification": "💡 CRO Strategy: Tiered Milestone Gamification",
+      "pack_economics": "💡 CRO Strategy: Multi-Pack Economics",
+      "subscription": "💡 CRO Strategy: Zero-Friction Subscriptions",
+      "guardrail": "⚠️ Setup Guardrail"
     },
     "paragraphs": {
-      "cart_gamification": "Set Tier 1 (Free Shipping) 15–20% higher than your baseline AOV to encourage multi-pack upgrades. Set Tier 2 (Free Gift) at 1.5x–2x AOV to drive checkout completion."
+      "cart_gamification": "Set Tier 1 (Free Shipping) 15–20% higher than your baseline AOV to encourage multi-pack upgrades. Set Tier 2 (Free Gift) at 1.5x–2x AOV to drive checkout completion.",
+      "pack_economics": "Consumables brands convert up to 23% higher when offering 3 distinct pack sizes. A 10–15% discount on Tier 2 creates a powerful cognitive anchor that shifts volume away from single-unit orders to maximize Average Order Value (AOV).",
+      "subscription": "Top-converting brands avoid deceptive stealth subscriptions. Clear dual-card toggles paired with explicit 'Skip or cancel anytime' assurances eliminate customer checkout hesitation.",
+      "guardrail_telemetry": "Ensure custom.roast_level and custom.origin_telemetry are populated in your Shopify Product Admin. If left blank, this block will automatically collapse cleanly with zero layout shift or whitespace gaps."
     },
     "labels": {
       "free_shipping_threshold": "Tier 1: Free Shipping Threshold",
       "free_gift_threshold": "Tier 2: Free Gift Threshold",
-      "free_gift_name": "Tier 2: Free Gift Description"
+      "free_gift_name": "Tier 2: Free Gift Description",
+      "tier_2_badge": "Tier 2 Badge Label",
+      "show_per_serving_price": "Show Price Per Serving / Unit",
+      "sub_discount_badge": "Subscription Savings Badge",
+      "cancellation_reassurance": "Reassurance Micro-Copy"
+    },
+    "infos": {
+      "tier_2_badge": "Highlighting Tier 2 as 'Most Popular' leverages social proof to steer default selection.",
+      "show_per_serving_price": "Requires custom.unit_servings metafield. Breaking high bundle prices into '$1.13 / cup' eliminates price shock.",
+      "sub_discount_badge": "The sweet spot for consumable subscription discounts is 15% to 20%."
     }
   }
 }

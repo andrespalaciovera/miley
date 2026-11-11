@@ -1,0 +1,134 @@
+/**
+ * Component: Pack Selector
+ * Tokenized styles conforming to Figma Skins 1 & 2
+ */
+
+pack-selector {
+  display: block;
+  width: 100%;
+  margin-bottom: var(--space-lg);
+}
+
+.pack-selector__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-sm);
+}
+
+.pack-selector__title {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pack-selector__grid {
+  display: flex;
+  gap: var(--space-xs);
+  width: 100%;
+}
+
+.pack-tile {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 112px;
+  padding: var(--space-sm);
+  background-color: var(--bg-main);
+  border: var(--stroke-hairline) solid var(--border-default);
+  border-radius: var(--radius-sm);
+  position: relative;
+  cursor: pointer;
+  box-shadow: var(--shadow-subtle);
+  transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  font-family: inherit;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.pack-tile:hover {
+  border-color: var(--color-secondary);
+}
+
+.pack-tile--selected {
+  border: var(--stroke-emphasis) solid var(--border-selected);
+  background-color: var(--bg-main);
+}
+
+.pack-tile__floating-badge {
+  position: absolute;
+  top: -12px;
+  background-color: var(--color-secondary);
+  color: var(--text-on-secondary);
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  line-height: var(--label-line-height);
+  font-weight: 500;
+  padding: var(--space-xxs) var(--space-sm);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  box-shadow: var(--shadow-subtle);
+  pointer-events: none;
+}
+
+.pack-tile__name {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  line-height: var(--label-line-height);
+  color: var(--text-muted);
+  letter-spacing: var(--label-letter-spacing);
+  white-space: nowrap;
+}
+
+.pack-tile--selected .pack-tile__name {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.pack-tile__price-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: var(--space-xxs) 0;
+}
+
+.pack-tile__price {
+  font-family: var(--font-heading);
+  font-size: var(--h4-size);
+  line-height: var(--h4-line-height);
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.pack-tile__unit-price {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  line-height: var(--label-line-height);
+  color: var(--text-muted);
+  letter-spacing: var(--label-letter-spacing);
+  white-space: nowrap;
+}
+
+.pack-tile__bottom-badge {
+  display: block;
+  width: 100%;
+  padding: var(--space-xxs) var(--space-sm);
+  background-color: var(--color-secondary);
+  color: var(--text-on-secondary);
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  line-height: var(--label-line-height);
+  border-radius: var(--radius-xs);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.pack-tile__bottom-badge--standard {
+  background-color: var(--color-tertiary);
+  color: var(--text-on-tertiary);
+}
