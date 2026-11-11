@@ -66,5 +66,29 @@
       "large": "Large",
       "small": "Small"
     }
+  },
+  "skins": {
+    "title": "Brand Skin & Persona",
+    "header": "Active Aesthetic & Market Persona",
+    "paragraph": "Switch between high-converting consumable brand personas. All typography, button colors, and token palettes adapt automatically.",
+    "label": "Theme Skin",
+    "options": {
+      "skin_1": "Skin 1: Specialty Coffee (Warm, Editorial)",
+      "skin_2": "Skin 2: Functional Supplement (Clean, Scientific)"
+    }
+  },
+  "cro": {
+    "title": "CRO Strategy & Conversion",
+    "headers": {
+      "cart_gamification": "💡 CRO Strategy: Tiered Milestone Gamification"
+    },
+    "paragraphs": {
+      "cart_gamification": "Set Tier 1 (Free Shipping) 15–20% higher than your baseline AOV to encourage multi-pack upgrades. Set Tier 2 (Free Gift) at 1.5x–2x AOV to drive checkout completion."
+    },
+    "labels": {
+      "free_shipping_threshold": "Tier 1: Free Shipping Threshold",
+      "free_gift_threshold": "Tier 2: Free Gift Threshold",
+      "free_gift_name": "Tier 2: Free Gift Description"
+    }
   }
 }

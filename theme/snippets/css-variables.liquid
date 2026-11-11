@@ -1,18 +1,182 @@
 {% style %}
-  {% # Loads all font variantions with display: swap %}
+  {% # Loads all font variations with display: swap %}
   {{ settings.type_primary_font | font_face: font_display: 'swap' }}
   {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
   {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
   {{ settings.type_primary_font | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
 
   :root {
+    /* --- Base Layout & Fonts from Theme Settings --- */
     --font-primary--family: {{ settings.type_primary_font.family }}, {{ settings.type_primary_font.fallback_families }};
     --font-primary--style: {{ settings.type_primary_font.style }};
     --font-primary--weight: {{ settings.type_primary_font.weight }};
     --page-width: {{ settings.max_page_width }};
     --page-margin: {{ settings.min_page_margin }}px;
-    --color-background: {{ settings.background_color }};
-    --color-foreground: {{ settings.foreground_color }};
     --style-border-radius-inputs: {{ settings.input_corner_radius }}px;
+
+    /* --- Primitive Tier (14 Pure Primitives — Brand & Structural Anchors) --- */
+    --primitive-coffee-black: #151c25;
+    --primitive-coffee-brown: #a18263;
+    --primitive-green: #344435;
+    --primitive-supp-turquoise: #00bc8e;
+    --primitive-supp-coral: #c5452c;
+    --primitive-white: #ffffff;
+    --primitive-coffee-cream: #f6ebe0;
+    --primitive-neutral-off-white: #fafafa;
+    --primitive-neutral-subtle: #efefef;
+    --primitive-neutral-track: #d2d2d2;
+    --primitive-neutral-border: #e0d8d2;
+    --primitive-neutral-muted: #555f6d;
+    --primitive-neutral-divider: rgba(198, 198, 205, 0.6);
+    --primitive-black-overlay: rgba(0, 0, 0, 0.4);
+
+    /* --- Spacing Scale (4px Base Grid) --- */
+    --space-xxs: 4px;
+    --space-xs: 6px;
+    --space-sm: 8px;
+    --space-md: 12px;
+    --space-lg: 16px;
+    --space-xl: 20px;
+    --space-2xl: 24px;
+
+    /* --- Geometry & Radii --- */
+    --radius-none: 0px;
+    --radius-xs: 4px;
+    --radius-sm: 8px;
+    --radius-sm-md: 12px;
+    --radius-md: 16px;
+    --radius-lg: 32px;
+    --radius-full: 999px;
+    --radius-panel-flat: 8px;
+    --radius-panel-photo: 16px;
+
+    /* --- Strokes & Metrics --- */
+    --stroke-hairline: 1px;
+    --stroke-emphasis: 2px;
+    --gauge-diameter: 46px;
+    --gauge-ring-thickness: 9px;
+
+    /* --- Elevation & Shadows --- */
+    --shadow-subtle: 0px 1px 2px rgba(0, 0, 0, 0.05);
+
+    /* --- Surface, Border & System Utility Tokens (Common) --- */
+    --surface-container: var(--primitive-white);
+    --surface-track: var(--primitive-neutral-track);
+    --surface-overlay: var(--primitive-black-overlay);
+    --border-default: var(--primitive-neutral-border);
+    --border-divider: var(--primitive-neutral-divider);
+    --color-error: #d72c0d;
+    --color-success: #008060;
+
+    /* Default Fallback Semantic Roles (Skin 1 - Specialty Coffee) */
+    --color-primary: var(--primitive-coffee-black);
+    --color-secondary: var(--primitive-coffee-brown);
+    --color-tertiary: var(--primitive-green);
+
+    --text-primary: var(--primitive-coffee-black);
+    --text-muted: var(--primitive-neutral-muted);
+    --text-accent: var(--primitive-coffee-brown);
+    --text-inverse: var(--primitive-white);
+    --text-on-primary: var(--primitive-white);
+    --text-on-secondary: var(--primitive-coffee-black);
+    --text-on-tertiary: var(--primitive-white);
+
+    --bg-main: var(--primitive-coffee-cream);
+    --surface-subtle: var(--primitive-coffee-cream);
+    --surface-inverted: var(--primitive-coffee-brown);
+    --border-selected: var(--primitive-green);
+
+    /* Legacy skeleton compatibility bindings */
+    --color-background: var(--bg-main);
+    --color-foreground: var(--text-primary);
+
+    /* Typography */
+    --font-heading: 'Literata', serif;
+    --font-body: 'Inter', sans-serif;
+    --font-label: 'Inter', sans-serif;
+    --h2-size: 24px;
+    --h2-line-height: 27.5px;
+    --h2-letter-spacing: -0.5px;
+    --h4-size: 18px;
+    --h4-line-height: 24px;
+    --body-size: 14px;
+    --body-line-height: 20px;
+    --label-size: 12px;
+    --label-line-height: 16px;
+    --label-letter-spacing: -0.5px;
+  }
+
+  /* --- Skin 1: Specialty Coffee (Warm, Editorial, Artisan) --- */
+  [data-skin="skin-1"] {
+    --color-primary: var(--primitive-coffee-black);
+    --color-secondary: var(--primitive-coffee-brown);
+    --color-tertiary: var(--primitive-green);
+
+    --text-primary: var(--primitive-coffee-black);
+    --text-muted: var(--primitive-neutral-muted);
+    --text-accent: var(--primitive-coffee-brown);
+    --text-inverse: var(--primitive-white);
+    --text-on-primary: var(--primitive-white);
+    --text-on-secondary: var(--primitive-coffee-black);
+    --text-on-tertiary: var(--primitive-white);
+
+    --bg-main: var(--primitive-coffee-cream);
+    --surface-subtle: var(--primitive-coffee-cream);
+    --surface-inverted: var(--primitive-coffee-brown);
+    --border-selected: var(--primitive-green);
+
+    --color-background: var(--bg-main);
+    --color-foreground: var(--text-primary);
+
+    --font-heading: 'Literata', serif;
+    --font-body: 'Inter', sans-serif;
+    --font-label: 'Inter', sans-serif;
+    --h2-size: 24px;
+    --h2-line-height: 27.5px;
+    --h2-letter-spacing: -0.5px;
+    --h4-size: 18px;
+    --h4-line-height: 24px;
+    --body-size: 14px;
+    --body-line-height: 20px;
+    --label-size: 12px;
+    --label-line-height: 16px;
+    --label-letter-spacing: -0.5px;
+  }
+
+  /* --- Skin 2: Functional Supplement (Clean, Scientific, Energetic) --- */
+  [data-skin="skin-2"] {
+    --color-primary: var(--primitive-supp-turquoise);
+    --color-secondary: var(--primitive-supp-coral);
+    --color-tertiary: var(--primitive-coffee-black);
+
+    --text-primary: var(--primitive-coffee-black);
+    --text-muted: var(--primitive-neutral-muted);
+    --text-accent: var(--primitive-supp-coral);
+    --text-inverse: var(--primitive-white);
+    --text-on-primary: var(--primitive-coffee-black);
+    --text-on-secondary: var(--primitive-white);
+    --text-on-tertiary: var(--primitive-white);
+
+    --bg-main: var(--primitive-neutral-off-white);
+    --surface-subtle: var(--primitive-neutral-subtle);
+    --surface-inverted: var(--primitive-coffee-black);
+    --border-selected: var(--primitive-coffee-black);
+
+    --color-background: var(--bg-main);
+    --color-foreground: var(--text-primary);
+
+    --font-heading: 'Gasoek One', cursive;
+    --font-body: 'Source Code Pro', monospace;
+    --font-label: 'Inter', sans-serif;
+    --h2-size: 24px;
+    --h2-line-height: 28px;
+    --h2-letter-spacing: 0px;
+    --h4-size: 16px;
+    --h4-line-height: 20px;
+    --body-size: 14px;
+    --body-line-height: 20px;
+    --label-size: 12px;
+    --label-line-height: 16px;
+    --label-letter-spacing: 0px;
   }
 {% endstyle %}

@@ -27,7 +27,7 @@
     {{ content_for_header }}
   </head>
 
-  <body>
+  <body data-skin="{{ settings.theme_skin | default: 'skin-1' }}">
     {% block 'container', tag: 'div' %}
       {% block 'header' -%}{%- endblock %}
     {% endblock %}

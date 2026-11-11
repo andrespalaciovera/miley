@@ -73,9 +73,32 @@ p:empty {
 
 /** Theme styles below */
 body {
-  font-family: var(--font-primary--family);
+  font-family: var(--font-body, var(--font-primary--family));
   background-color: var(--color-background);
   color: var(--color-foreground);
+  font-size: var(--body-size, 14px);
+  line-height: var(--body-line-height, 20px);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading, var(--font-primary--family));
+  color: var(--text-primary);
+}
+
+h2 {
+  font-size: var(--h2-size, 24px);
+  line-height: var(--h2-line-height, 28px);
+  letter-spacing: var(--h2-letter-spacing, normal);
+}
+
+h4 {
+  font-size: var(--h4-size, 18px);
+  line-height: var(--h4-line-height, 24px);
 }
 
 /** Block container layout utilities */

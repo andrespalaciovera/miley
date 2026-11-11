@@ -79,5 +79,73 @@
         "default": 4
       }
     ]
+  },
+  {
+    "name": "t:skins.title",
+    "settings": [
+      {
+        "type": "header",
+        "content": "t:skins.header"
+      },
+      {
+        "type": "paragraph",
+        "content": "t:skins.paragraph"
+      },
+      {
+        "type": "select",
+        "id": "theme_skin",
+        "label": "t:skins.label",
+        "default": "skin-1",
+        "options": [
+          {
+            "value": "skin-1",
+            "label": "t:skins.options.skin_1"
+          },
+          {
+            "value": "skin-2",
+            "label": "t:skins.options.skin_2"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "t:cro.title",
+    "settings": [
+      {
+        "type": "header",
+        "content": "t:cro.headers.cart_gamification"
+      },
+      {
+        "type": "paragraph",
+        "content": "t:cro.paragraphs.cart_gamification"
+      },
+      {
+        "type": "range",
+        "id": "free_shipping_threshold",
+        "min": 25,
+        "max": 120,
+        "step": 5,
+        "unit": "$",
+        "label": "t:cro.labels.free_shipping_threshold",
+        "default": 35
+      },
+      {
+        "type": "range",
+        "id": "free_gift_threshold",
+        "min": 40,
+        "max": 200,
+        "step": 5,
+        "unit": "$",
+        "label": "t:cro.labels.free_gift_threshold",
+        "default": 60
+      },
+      {
+        "type": "text",
+        "id": "free_gift_name",
+        "label": "t:cro.labels.free_gift_name",
+        "default": "Free Sample Bag Included"
+      }
+    ]
   }
 ]
