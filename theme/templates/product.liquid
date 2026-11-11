@@ -1,4 +1,6 @@
 {% block 'container' %}
+  {% render 'product-data-island', product: product %}
+
   <div class="product-images">
     {% for image in product.images %}
       {% render 'image', class: 'product-image', image: image %}

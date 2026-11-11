@@ -21,6 +21,13 @@
     {{ 'critical.css' | asset_url | stylesheet_tag: preload: true }}
     {{ 'base.css' | asset_url | stylesheet_tag }}
 
+    {% # Global Event Bus and Core Currency Engine %}
+    <script src="{{ 'theme-events.js' | asset_url }}" defer="defer"></script>
+    <script>
+      window.theme = window.theme || {};
+      window.theme.moneyFormat = {{ shop.money_format | json }};
+    </script>
+
     {% # Social, title, etc. %}
     {% render 'meta-tags' %}
 

@@ -1,0 +1,67 @@
+{% comment %}
+  Product Data Island
+  Outputs complete, valid JSON data island adhering to SDD v1.2.0 Section 11.
+  Guarantees 100% currency invariant integer cents output.
+  Decoupled from DOM selectors.
+{% endcomment %}
+<script type="application/json" id="ProductData-{{ product.id }}">
+{
+  "id": {{ product.id }},
+  "title": {{ product.title | json }},
+  "handle": {{ product.handle | json }},
+  "available": {{ product.available | json }},
+  "options": {{ product.options | json }},
+  "selectedVariantId": {{ product.selected_or_first_available_variant.id | default: 'null' }},
+  "unitServingsDefault": {% if product.metafields.custom.unit_servings != blank %}{{ product.metafields.custom.unit_servings.value | json }}{% else %}null{% endif %},
+  "variants": [
+    {%- for variant in product.variants -%}
+      {
+        "id": {{ variant.id }},
+        "title": {{ variant.title | json }},
+        "options": {{ variant.options | json }},
+        "price": {{ variant.price }},
+        "compareAtPrice": {% if variant.compare_at_price %}{{ variant.compare_at_price }}{% else %}null{% endif %},
+        "available": {{ variant.available | json }},
+        "sku": {{ variant.sku | json }},
+        "featuredMediaId": {% if variant.featured_media %}{{ variant.featured_media.id }}{% else %}null{% endif %},
+        "unitServings": {% if variant.metafields.custom.unit_servings != blank %}{{ variant.metafields.custom.unit_servings.value | json }}{% elsif product.metafields.custom.unit_servings != blank %}{{ product.metafields.custom.unit_servings.value | json }}{% else %}null{% endif %},
+        "unitsPerPack": {% if variant.metafields.custom.units_per_pack != blank %}{{ variant.metafields.custom.units_per_pack.value | json }}{% else %}1{% endif %},
+        "savingsPercentage": {% if variant.compare_at_price and variant.compare_at_price > variant.price %}{{ variant.compare_at_price | minus: variant.price | times: 100.0 | divided_by: variant.compare_at_price | round }}{% else %}null{% endif %},
+        "badge": {% if variant.metafields.custom.badge != blank %}{{ variant.metafields.custom.badge.value | json }}{% else %}null{% endif %},
+        "sellingPlanAllocations": [
+          {%- for allocation in variant.selling_plan_allocations -%}
+            {
+              "sellingPlanId": {{ allocation.selling_plan.id }},
+              "name": {{ allocation.selling_plan.name | json }},
+              "discountPercent": {% if allocation.price < variant.price %}{{ variant.price | minus: allocation.price | times: 100.0 | divided_by: variant.price | round }}{% else %}0{% endif %},
+              "price": {{ allocation.price }}
+            }{% unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+        ]
+      }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ],
+  "sellingPlans": [
+    {%- assign is_first_plan = true -%}
+    {%- for group in product.selling_plan_groups -%}
+      {%- for plan in group.selling_plans -%}
+        {%- unless is_first_plan -%},{%- endunless -%}
+        {%- assign is_first_plan = false -%}
+        {
+          "id": {{ plan.id }},
+          "name": {{ plan.name | json }},
+          "description": {{ plan.description | json }},
+          "options": {{ plan.options | json }}
+        }
+      {%- endfor -%}
+    {%- endfor -%}
+  ],
+  "telemetry": {
+    "roastLevel": {% if product.metafields.custom.roast_level != blank %}{{ product.metafields.custom.roast_level.value | json }}{% else %}null{% endif %},
+    "elevation": {% if product.metafields.custom.origin_telemetry.value.elevation != blank %}{{ product.metafields.custom.origin_telemetry.value.elevation | json }}{% else %}null{% endif %},
+    "process": {% if product.metafields.custom.origin_telemetry.value.process != blank %}{{ product.metafields.custom.origin_telemetry.value.process | json }}{% else %}null{% endif %},
+    "variety": {% if product.metafields.custom.origin_telemetry.value.variety != blank %}{{ product.metafields.custom.origin_telemetry.value.variety | json }}{% else %}null{% endif %},
+    "cupping": {% if product.metafields.custom.cupping_profile != blank %}{{ product.metafields.custom.cupping_profile.value | json }}{% else %}null{% endif %}
+  }
+}
+</script>
