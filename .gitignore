@@ -1,0 +1,17 @@
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Shopify CLI files
+.shopify/
+release/
+*.zip
+
+# Obsidian local workspace cache (keeps vault clean)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
