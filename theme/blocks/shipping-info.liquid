@@ -1,0 +1,25 @@
+{% doc %}
+  Renders the Shipping Info block matching Figma Node 491:991.
+  Displays fulfillment timing and free shipping threshold.
+{% enddoc %}
+
+<div class="shipping-info-box" {{ block.shopify_attributes }}>
+  <div class="shipping-info-header">
+    <img src="{{ 'icon-shipping-truck.svg' | asset_url }}" alt="" width="17" height="12" class="shipping-info-icon" aria-hidden="true">
+    <span class="shipping-info-title">Shipping info</span>
+  </div>
+  <p class="shipping-info-body">
+    {%- if settings.theme_skin == 'skin-2' -%}
+      In stock. Orders placed before 2 PM EST ship same-day. Free shipping on orders over $40.
+    {%- else -%}
+      Roasted to order, ships within 48 hours. Free shipping on orders over $35.
+    {%- endif -%}
+  </p>
+</div>
+
+{% schema %}
+{
+  "name": "Shipping Info",
+  "settings": []
+}
+{% endschema %}

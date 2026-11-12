@@ -1,0 +1,80 @@
+{% doc %}
+  Renders the Collapsible FAQ Accordion matching Figma Node 491:999.
+  Native semantic HTML details/summary elements for accessible disclosure.
+{% enddoc %}
+
+<div class="faq-accordion-box" {{ block.shopify_attributes }}>
+  <div class="faq-accordion-header">
+    <span class="faq-accordion-badge">FAQ</span>
+    <span class="faq-accordion-count">3 Questions</span>
+  </div>
+
+  <div class="faq-accordion-list">
+    <details class="faq-item" open>
+      <summary class="faq-summary">
+        <span class="faq-question">
+          {%- if settings.theme_skin == 'skin-2' -%}
+            When should I take Daily Focus Complex?
+          {%- else -%}
+            How should I store this coffee?
+          {%- endif -%}
+        </span>
+        <img src="{{ 'icon-chevron.svg' | asset_url }}" alt="" width="9" height="9" class="faq-chevron" aria-hidden="true">
+      </summary>
+      <div class="faq-answer">
+        {%- if settings.theme_skin == 'skin-2' -%}
+          Take 2 capsules each morning with a glass of water or your morning beverage. Best taken consistently for compounding cognitive benefits.
+        {%- else -%}
+          Keep in the original resealable bag with one-way degassing valve. Store in a cool, dry cupboard away from direct sunlight. Do not freeze beans as condensation damages delicate aromatics.
+        {%- endif -%}
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        <span class="faq-question">
+          {%- if settings.theme_skin == 'skin-2' -%}
+            Will this make me feel jittery or crash?
+          {%- else -%}
+            Can I change my subscription cadence?
+          {%- endif -%}
+        </span>
+        <img src="{{ 'icon-chevron.svg' | asset_url }}" alt="" width="9" height="9" class="faq-chevron" aria-hidden="true">
+      </summary>
+      <div class="faq-answer">
+        {%- if settings.theme_skin == 'skin-2' -%}
+          No. Daily Focus Complex combines L-Theanine with natural caffeine in an ideal 2:1 ratio, providing laser-focused calm energy without jitters or crashes.
+        {%- else -%}
+          Yes! You can pause, skip, swap bag sizes, or adjust delivery frequency (2, 4, or 6 weeks) anytime from your customer account portal with 1 click.
+        {%- endif -%}
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        <span class="faq-question">
+          {%- if settings.theme_skin == 'skin-2' -%}
+            Are the ingredients third-party tested?
+          {%- else -%}
+            Is this coffee organic certified?
+          {%- endif -%}
+        </span>
+        <img src="{{ 'icon-chevron.svg' | asset_url }}" alt="" width="9" height="9" class="faq-chevron" aria-hidden="true">
+      </summary>
+      <div class="faq-answer">
+        {%- if settings.theme_skin == 'skin-2' -%}
+          Yes. Every single batch is independently tested in an ISO-accredited lab for potency, heavy metals, pesticides, and microbial purity.
+        {%- else -%}
+          Yes, 100% of the smallholder farms in the Guji cooperative practice organic regenerative agriculture, certified free of synthetic fertilizers and chemical sprays.
+        {%- endif -%}
+      </div>
+    </details>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "FAQ Accordion",
+  "settings": []
+}
+{% endschema %}

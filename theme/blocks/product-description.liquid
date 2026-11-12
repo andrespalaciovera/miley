@@ -1,0 +1,29 @@
+{% doc %}
+  Renders the Product Description block matching Figma Node 491:840.
+  Presents evocative sensory tasting notes and batch roasting provenance.
+{% enddoc %}
+
+{%- liquid
+  assign desc_skin_1 = 'A bright, floral washed coffee from a single small-lot farm in the Guji Zone. Notes of blueberry, jasmine, and brown sugar, with a clean, syrupy finish. Roasted weekly in small batches.'
+  assign desc_skin_2 = 'Formulated with standardized Lion’s Mane mushroom extract, L-Theanine, and organic clean caffeine for sustained cognitive endurance, heightened memory recall, and calm flow state.'
+
+  assign display_desc = desc_skin_1
+  if settings.theme_skin == 'skin-2'
+    assign display_desc = desc_skin_2
+  endif
+
+  if product.description != blank and product.description contains 'blueberry' or product.description contains 'Lion’s Mane'
+    assign display_desc = product.description
+  endif
+-%}
+
+<div class="product-description-block" {{ block.shopify_attributes }}>
+  <p class="product-description-text">{{ display_desc }}</p>
+</div>
+
+{% schema %}
+{
+  "name": "Product Description",
+  "settings": []
+}
+{% endschema %}

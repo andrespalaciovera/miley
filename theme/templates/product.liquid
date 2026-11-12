@@ -2,60 +2,71 @@
   {% render 'product-data-island', product: product %}
 
   <div class="product-layout">
-    <div class="product-images">
-      {% for image in product.images %}
-        {% render 'image', class: 'product-image', image: image %}
-      {% endfor %}
+    <div class="product-visual-column">
+      {% block 'product-gallery' %}{% endblock %}
     </div>
 
-    <div class="product-details">
-      <div class="product-info">
-        <h1>{{ product.title }}</h1>
-        <p class="product-price" data-product-price>{{ product.selected_or_first_available_variant.price | money }}</p>
-        {%- if product.description != blank -%}
-          <div class="product-description">{{ product.description }}</div>
-        {%- endif -%}
-      </div>
+    <div class="product-details-column">
+      {% block 'product-meta' %}{% endblock %}
 
       {% block 'roaster-telemetry' %}{% endblock %}
 
-      {% block 'pack-selector' %}{% endblock %}
+      {% block 'trust-icons' %}{% endblock %}
 
-      {% block 'subscription-toggle' %}{% endblock %}
+      {% block 'product-description' %}{% endblock %}
 
-      <product-form-controller class="product-form">
-        {% form 'product', product, id: 'MainProductForm' %}
-          {% assign current_variant = product.selected_or_first_available_variant %}
+      <div class="purchase-decision-zone">
+        {% block 'pack-selector' %}{% endblock %}
 
-          <input type="hidden" name="id" value="{{ current_variant.id }}">
-          <input type="hidden" name="selling_plan" value="">
-          <input type="hidden" name="quantity" min="1" value="1">
+        {% block 'subscription-toggle' %}{% endblock %}
 
-          <button
-            type="submit"
-            name="add"
-            class="product-form__submit btn-primary"
-            data-primary-atc
-            data-label-atc="{{ 'products.add_to_cart' | t }}"
-            data-label-sold-out="{{ 'products.sold_out' | t }}"
-            {% unless current_variant.available %}disabled{% endunless %}
-          >
-            {%- if current_variant.available -%}
+        <product-form-controller class="product-form">
+          {% form 'product', product, id: 'MainProductForm' %}
+            {% assign current_variant = product.selected_or_first_available_variant %}
+
+            <input type="hidden" name="id" value="{{ current_variant.id | default: 1 }}">
+            <input type="hidden" name="selling_plan" value="">
+            <input type="hidden" name="quantity" min="1" value="1">
+
+            <button
+              type="submit"
+              name="add"
+              class="product-form__submit btn-primary"
+              data-primary-atc
+              data-label-atc="{{ 'products.add_to_cart' | t }}"
+              data-label-sold-out="{{ 'products.sold_out' | t }}"
+            >
               {{ 'products.add_to_cart' | t }}
-            {%- else -%}
-              {{ 'products.sold_out' | t }}
-            {%- endif -%}
-          </button>
-          {{ form | payment_button }}
-        {% endform %}
-      </product-form-controller>
+            </button>
+            {{ form | payment_button }}
+          {% endform %}
+        </product-form-controller>
+      </div>
 
-      {% block 'sensory-radar' %}{% endblock %}
+      <div class="transparency-zone">
+        {% block 'facts-table' %}{% endblock %}
 
-      {% block 'origin-telemetry' %}{% endblock %}
+        {% block 'origin-telemetry' %}{% endblock %}
 
-      {% block 'brewing-recipe-tabs' %}{% endblock %}
+        {% block 'brewing-recipe-tabs' %}{% endblock %}
+      </div>
+
+      <div class="trust-continuation-zone">
+        {% block 'shipping-info' %}{% endblock %}
+
+        {% block 'faq-accordion' %}{% endblock %}
+
+        {% block 'complementary-products' %}{% endblock %}
+      </div>
     </div>
+  </div>
+
+  <div class="pdp-social-proof">
+    {% block 'testimonials' %}{% endblock %}
+
+    {% block 'influencer-section' %}{% endblock %}
+
+    {% block 'reviews-section' %}{% endblock %}
   </div>
 
   {% block 'sticky-add-to-cart' %}{% endblock %}

@@ -1,0 +1,69 @@
+{% doc %}
+  Renders the Facts Table Panel matching Figma Node 491:926.
+  Displays Per serving, Serving count, Caffeine, Ingredients, and Allergens.
+{% enddoc %}
+
+{%- liquid
+  assign serving_size = '10g'
+  assign servings_count = '34'
+  assign servings_label = 'Serving per bag'
+  assign metric_3_val = '10g'
+  assign metric_3_label = 'Caffeine per serving'
+  assign ingredients_val = '100% Arabica coffee beans'
+  assign allergens_val = 'None. Roasted in a facility that also processes tree nuts.'
+
+  if settings.theme_skin == 'skin-2'
+    assign serving_size = '2 Capsules'
+    assign servings_count = '30'
+    assign servings_label = 'Servings per container'
+    assign metric_3_val = '150mg'
+    assign metric_3_label = 'Lion’s Mane & L-Theanine'
+    assign ingredients_val = 'Organic Lion’s Mane Extract, L-Theanine, Rhodiola Rosea, Organic Coffeeberry'
+    assign allergens_val = 'Gluten-Free, Non-GMO, Soy-Free, Vegan.'
+  endif
+-%}
+
+<div class="facts-table-panel" {{ block.shopify_attributes }}>
+  <div class="facts-table-grid">
+    <div class="facts-table-item">
+      <div class="facts-table-icon">
+        <img src="{{ 'icon-scale.svg' | asset_url }}" alt="" width="40" height="40" aria-hidden="true">
+      </div>
+      <span class="facts-table-num">{{ serving_size }}</span>
+      <span class="facts-table-sub">Per serving</span>
+    </div>
+
+    <div class="facts-table-item">
+      <div class="facts-table-icon">
+        <img src="{{ 'icon-cafe.svg' | asset_url }}" alt="" width="40" height="40" aria-hidden="true">
+      </div>
+      <span class="facts-table-num">{{ servings_count }}</span>
+      <span class="facts-table-sub">{{ servings_label }}</span>
+    </div>
+
+    <div class="facts-table-item">
+      <div class="facts-table-icon">
+        <img src="{{ 'icon-lightning.svg' | asset_url }}" alt="" width="40" height="40" aria-hidden="true">
+      </div>
+      <span class="facts-table-num">{{ metric_3_val }}</span>
+      <span class="facts-table-sub">{{ metric_3_label }}</span>
+    </div>
+  </div>
+
+  <div class="facts-detail-row">
+    <span class="facts-detail-label">Ingredients</span>
+    <span class="facts-detail-value">{{ ingredients_val }}</span>
+  </div>
+
+  <div class="facts-detail-row">
+    <span class="facts-detail-label">Allergens</span>
+    <span class="facts-detail-value">{{ allergens_val }}</span>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Facts Table Panel",
+  "settings": []
+}
+{% endschema %}

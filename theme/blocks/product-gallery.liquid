@@ -1,0 +1,61 @@
+{% doc %}
+  Renders the Product Gallery matching Figma Node 489:2189 / 491:724.
+  Displays main high-res image and gallery thumbnails with dot indicators.
+{% enddoc %}
+
+{%- liquid
+  assign main_img = 'solstice-coffee-bag.png'
+  if settings.theme_skin == 'skin-2'
+    assign main_img = 'vitality-daily-focus.png'
+  endif
+-%}
+
+<div class="product-gallery" {{ block.shopify_attributes }}>
+  <div class="product-gallery__main-wrap">
+    <div class="product-gallery__main">
+      <img
+        src="{{ main_img | asset_url }}"
+        alt="Product presentation"
+        class="product-gallery__hero-img"
+        width="358"
+        height="358"
+        loading="eager"
+      >
+    </div>
+
+    <div class="product-gallery__thumbs">
+      <button type="button" class="product-gallery__thumb product-gallery__thumb--active" aria-label="View photo 1">
+        <img src="{{ main_img | asset_url }}" alt="" width="80" height="80">
+      </button>
+      <button type="button" class="product-gallery__thumb" aria-label="View photo 2">
+        {%- if settings.theme_skin == 'skin-2' -%}
+          <img src="{{ 'vitality-focus-citrus-yellow.png' | asset_url }}" alt="" width="80" height="80">
+        {%- else -%}
+          <img src="{{ 'pour-over-dripper.png' | asset_url }}" alt="" width="80" height="80">
+        {%- endif -%}
+      </button>
+      <button type="button" class="product-gallery__thumb" aria-label="View photo 3">
+        {%- if settings.theme_skin == 'skin-2' -%}
+          <img src="{{ 'vitality-focus-citrus-blue.png' | asset_url }}" alt="" width="80" height="80">
+        {%- else -%}
+          <img src="{{ 'solstice-coffee-bag.png' | asset_url }}" alt="" width="80" height="80">
+        {%- endif -%}
+      </button>
+    </div>
+  </div>
+
+  <div class="product-gallery__indicators" aria-hidden="true">
+    <span class="gallery-dot gallery-dot--active"></span>
+    <span class="gallery-dot"></span>
+    <span class="gallery-dot"></span>
+    <span class="gallery-dot"></span>
+    <span class="gallery-dot"></span>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Gallery",
+  "settings": []
+}
+{% endschema %}

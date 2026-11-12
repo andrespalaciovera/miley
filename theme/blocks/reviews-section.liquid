@@ -1,0 +1,131 @@
+{% doc %}
+  Renders the Full Reviews Section matching Figma Node 491:1191.
+  Displays Score Breakdown, Photo/Video gallery strip, Filter Chips, and Customer Review Cards.
+{% enddoc %}
+
+<div class="reviews-section" {{ block.shopify_attributes }}>
+  <div class="reviews-header">
+    <h2 class="reviews-title">What people are saying</h2>
+    <p class="reviews-subtitle">Real reviews from customers who’ve tried it.</p>
+  </div>
+
+  <div class="reviews-summary-card">
+    <div class="reviews-summary-left">
+      <span class="reviews-big-score">4.8</span>
+      <div class="reviews-summary-stars" aria-label="4.8 out of 5 stars">
+        <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="16" height="15">
+        <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="16" height="15">
+        <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="16" height="15">
+        <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="16" height="15">
+        <img src="{{ 'icon-star-half.svg' | asset_url }}" alt="" width="16" height="15">
+      </div>
+      <span class="reviews-total-count">Based on 128 reviews</span>
+    </div>
+
+    <div class="reviews-bars">
+      <div class="review-bar-row">
+        <span class="review-bar-label">5★</span>
+        <div class="review-bar-track"><div class="review-bar-fill" style="width: 86%;"></div></div>
+        <span class="review-bar-count">110</span>
+      </div>
+      <div class="review-bar-row">
+        <span class="review-bar-label">4★</span>
+        <div class="review-bar-track"><div class="review-bar-fill" style="width: 11%;"></div></div>
+        <span class="review-bar-count">14</span>
+      </div>
+      <div class="review-bar-row">
+        <span class="review-bar-label">3★</span>
+        <div class="review-bar-track"><div class="review-bar-fill" style="width: 3%;"></div></div>
+        <span class="review-bar-count">4</span>
+      </div>
+      <div class="review-bar-row">
+        <span class="review-bar-label">2★</span>
+        <div class="review-bar-track"><div class="review-bar-fill" style="width: 0%;"></div></div>
+        <span class="review-bar-count">0</span>
+      </div>
+      <div class="review-bar-row">
+        <span class="review-bar-label">1★</span>
+        <div class="review-bar-track"><div class="review-bar-fill" style="width: 0%;"></div></div>
+        <span class="review-bar-count">0</span>
+      </div>
+    </div>
+
+    <div class="reviews-cta-wrap">
+      <button type="button" class="btn-secondary reviews-write-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M12 20h9"></path>
+          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+        </svg>
+        Write a review
+      </button>
+    </div>
+  </div>
+
+  <div class="reviews-media-strip">
+    <div class="reviews-media-header">
+      <span class="reviews-media-title">Customer Photos & Videos (18)</span>
+      <button type="button" class="reviews-media-all-btn">View all</button>
+    </div>
+    <div class="reviews-media-thumbnails">
+      <div class="review-thumb"><img src="{{ 'solstice-coffee-bag.png' | asset_url }}" alt="Customer photo 1" width="84" height="84"></div>
+      <div class="review-thumb"><img src="{{ 'pour-over-dripper.png' | asset_url }}" alt="Customer photo 2" width="84" height="84"></div>
+      <div class="review-thumb"><img src="{{ 'influencer-1.png' | asset_url }}" alt="Customer photo 3" width="84" height="84"></div>
+      <div class="review-thumb review-thumb--more"><span>+15 More</span></div>
+    </div>
+  </div>
+
+  <div class="reviews-filter-chips">
+    <button type="button" class="filter-chip filter-chip--active">All (128)</button>
+    <button type="button" class="filter-chip">With photos (18)</button>
+    <button type="button" class="filter-chip">Verified (112)</button>
+    <button type="button" class="filter-chip">Taste (45)</button>
+  </div>
+
+  <div class="reviews-cards-list">
+    <article class="review-card">
+      <div class="review-card__header">
+        <div class="review-card__stars" aria-label="5 stars">
+          <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="14" height="13">
+          <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="14" height="13">
+          <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="14" height="13">
+          <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="14" height="13">
+          <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="14" height="13">
+        </div>
+        <span class="review-card__badge">Verified Buyer</span>
+      </div>
+
+      <h4 class="review-card__title">
+        {%- if settings.theme_skin == 'skin-2' -%}
+          Zero brain fog by 10 AM, completely changed my workday
+        {%- else -%}
+          Clean, sweet, and floral — the best home pour-over beans
+        {%- endif -%}
+      </h4>
+
+      <p class="review-card__body">
+        {%- if settings.theme_skin == 'skin-2' -%}
+          I was skeptical about nootropics, but Daily Focus Complex gives me a steady 6 hours of high cognitive focus without feeling wired. Clean ingredients and no upset stomach.
+        {%- else -%}
+          I’ve been ordering specialty coffee for over 5 years and this Guji washed lot is stellar. The jasmine florals come through clearly, with sweet blueberry in the cooling cup. Shipped within 24 hours of roasting!
+        {%- endif -%}
+      </p>
+
+      <div class="review-card__footer">
+        <span class="review-card__author">Sarah M. • 3 days ago</span>
+        <button type="button" class="review-card__helpful">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+          </svg>
+          Helpful (14)
+        </button>
+      </div>
+    </article>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Reviews Section",
+  "settings": []
+}
+{% endschema %}

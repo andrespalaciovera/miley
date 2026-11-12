@@ -1,5 +1,66 @@
+{% comment %}
+  Renders the storefront index / featured flagship PDP showcase.
+  Implements the full high-fidelity Figma PDP on the root URL.
+{% endcomment %}
+
 {% block 'container' %}
-  {% block 'hello-world' %}
-    {% block 'liquid-tips', tips: ['hello_world.liquid_tips_1', 'hello_world.liquid_tips_2', 'hello_world.liquid_tips_3'] %}{% endblock %}
-  {% endblock %}
+  <div class="product-layout">
+    <div class="product-visual-column">
+      {% block 'product-gallery' %}{% endblock %}
+    </div>
+
+    <div class="product-details-column">
+      {% block 'product-meta' %}{% endblock %}
+
+      {% block 'roaster-telemetry' %}{% endblock %}
+
+      {% block 'trust-icons' %}{% endblock %}
+
+      {% block 'product-description' %}{% endblock %}
+
+      <div class="purchase-decision-zone">
+        {% block 'pack-selector' %}{% endblock %}
+
+        {% block 'subscription-toggle' %}{% endblock %}
+
+        <div class="product-form">
+          <button
+            type="button"
+            class="product-form__submit btn-primary"
+            data-cart-trigger
+          >
+            Add to cart
+          </button>
+        </div>
+      </div>
+
+      <div class="transparency-zone">
+        {% block 'facts-table' %}{% endblock %}
+
+        {% block 'origin-telemetry' %}{% endblock %}
+
+        {% block 'brewing-recipe-tabs' %}{% endblock %}
+      </div>
+
+      <div class="trust-continuation-zone">
+        {% block 'shipping-info' %}{% endblock %}
+
+        {% block 'faq-accordion' %}{% endblock %}
+
+        {% block 'complementary-products' %}{% endblock %}
+      </div>
+    </div>
+  </div>
+
+  <div class="pdp-social-proof">
+    {% block 'testimonials' %}{% endblock %}
+
+    {% block 'influencer-section' %}{% endblock %}
+
+    {% block 'reviews-section' %}{% endblock %}
+  </div>
+
+  {% block 'sticky-add-to-cart' %}{% endblock %}
 {% endblock %}
+
+<script src="{{ 'anim-scrubber.js' | asset_url }}" defer="defer"></script>

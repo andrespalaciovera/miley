@@ -1,0 +1,52 @@
+{% doc %}
+  Renders the Trust/Icon Row matching Figma Node 491:793.
+  Displays 3 key brand trust indicators (Organic, Direct trade, Single-origin).
+{% enddoc %}
+
+<div class="trust-icons-row" {{ block.shopify_attributes }}>
+  <div class="trust-icon-item">
+    <div class="trust-icon-wrapper">
+      <img src="{{ 'icon-leaf-drop.svg' | asset_url }}" alt="" width="40" height="40" aria-hidden="true">
+    </div>
+    <span class="trust-icon-label">
+      {%- if settings.theme_skin == 'skin-2' -%}
+        100% Vegan
+      {%- else -%}
+        Organic
+      {%- endif -%}
+    </span>
+  </div>
+
+  <div class="trust-icon-item">
+    <div class="trust-icon-wrapper">
+      <img src="{{ 'icon-leaf-drop.svg' | asset_url }}" alt="" width="40" height="40" aria-hidden="true">
+    </div>
+    <span class="trust-icon-label">
+      {%- if settings.theme_skin == 'skin-2' -%}
+        Lab Tested
+      {%- else -%}
+        Direct trade
+      {%- endif -%}
+    </span>
+  </div>
+
+  <div class="trust-icon-item">
+    <div class="trust-icon-wrapper">
+      <img src="{{ 'icon-leaf-drop.svg' | asset_url }}" alt="" width="40" height="40" aria-hidden="true">
+    </div>
+    <span class="trust-icon-label">
+      {%- if settings.theme_skin == 'skin-2' -%}
+        GMP Certified
+      {%- else -%}
+        Single-origin
+      {%- endif -%}
+    </span>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Trust Icon Row",
+  "settings": []
+}
+{% endschema %}

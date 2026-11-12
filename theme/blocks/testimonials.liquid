@@ -1,0 +1,98 @@
+{% doc %}
+  Renders the Testimonials Section matching Figma Node 491:1099.
+  Features expert quotes, trust badges, and attribution cards.
+{% enddoc %}
+
+<div class="testimonials-section" {{ block.shopify_attributes }}>
+  <div class="testimonials-header">
+    <h2 class="testimonials-title">Why people choose us</h2>
+    <p class="testimonials-subtitle">Trusted by people who know great products.</p>
+  </div>
+
+  <div class="testimonials-carousel">
+    <div class="testimonial-card">
+      <div class="testimonial-card__top">
+        <span class="testimonial-quote-mark">“</span>
+        <span class="testimonial-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          Expert
+        </span>
+      </div>
+
+      <blockquote class="testimonial-body">
+        {%- if settings.theme_skin == 'skin-2' -%}
+          “Noticeable clarity and sustained energy in 20 minutes, with zero jittery spike. The cleanest nootropic formula on the market.”
+        {%- else -%}
+          “The cleanest and most balanced Ethiopian coffee we’ve tasted this year.”
+        {%- endif -%}
+      </blockquote>
+
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">
+          <span>
+            {%- if settings.theme_skin == 'skin-2' -%}
+              DR
+            {%- else -%}
+              JC
+            {%- endif -%}
+          </span>
+        </div>
+        <div class="testimonial-meta">
+          <h4 class="testimonial-name">
+            {%- if settings.theme_skin == 'skin-2' -%}
+              Dr. Marcus Vance
+            {%- else -%}
+              James Carter
+            {%- endif -%}
+          </h4>
+          <span class="testimonial-role">
+            {%- if settings.theme_skin == 'skin-2' -%}
+              Neurobiology PhD, Stanford
+            {%- else -%}
+              Coffee Buyer & Q-Grader
+            {%- endif -%}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="testimonial-card__top">
+        <span class="testimonial-quote-mark">“</span>
+        <span class="testimonial-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          Verified
+        </span>
+      </div>
+
+      <blockquote class="testimonial-body">
+        {%- if settings.theme_skin == 'skin-2' -%}
+          “Replaced my 3-cup afternoon coffee habit entirely. Kept me in deep work mode throughout my coding sprints.”
+        {%- else -%}
+          “The floral aroma fills my entire kitchen every morning. Brewing with a V60 yields sweet peach and bergamot notes that blew my mind.”
+        {%- endif -%}
+      </blockquote>
+
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">
+          <span>EL</span>
+        </div>
+        <div class="testimonial-meta">
+          <h4 class="testimonial-name">Elena Rostova</h4>
+          <span class="testimonial-role">Verified Subscriber (6 months)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "settings": []
+}
+{% endschema %}

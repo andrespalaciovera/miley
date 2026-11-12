@@ -81,6 +81,61 @@
       {%- endfor -%}
     </div>
   </pack-selector>
+{%- else -%}
+  <pack-selector
+    class="pack-selector"
+    data-product-id="{{ product.id | default: 'demo' }}"
+    {{ block.shopify_attributes }}
+  >
+    <div class="pack-selector__header">
+      <span class="pack-selector__title">Select quantity</span>
+    </div>
+
+    <div class="pack-selector__grid" role="group" aria-label="Select quantity">
+      <button
+        type="button"
+        class="pack-tile pack-tile--selected"
+        data-price="2000"
+        aria-pressed="true"
+      >
+        <span class="pack-tile__name">{% if settings.theme_skin == 'skin-2' %}1 Bottle{% else %}1 Bag{% endif %}</span>
+        <div class="pack-tile__price-group">
+          <span class="pack-tile__price">{% if settings.theme_skin == 'skin-2' %}$29{% else %}$20{% endif %}</span>
+          <span class="pack-tile__unit-price">{% if settings.theme_skin == 'skin-2' %}$0.96 / day{% else %}$0.58 / cup{% endif %}</span>
+        </div>
+        <span class="pack-tile__bottom-badge pack-tile__bottom-badge--standard">Standard</span>
+      </button>
+
+      <button
+        type="button"
+        class="pack-tile"
+        data-price="3600"
+        aria-pressed="false"
+      >
+        <span class="pack-tile__floating-badge">Most Popular</span>
+        <span class="pack-tile__name">{% if settings.theme_skin == 'skin-2' %}2 Bottles{% else %}2 Bags{% endif %}</span>
+        <div class="pack-tile__price-group">
+          <span class="pack-tile__price">{% if settings.theme_skin == 'skin-2' %}$52{% else %}$36{% endif %}</span>
+          <span class="pack-tile__unit-price">{% if settings.theme_skin == 'skin-2' %}$0.86 / day{% else %}$0.52 / cup{% endif %}</span>
+        </div>
+        <span class="pack-tile__bottom-badge">Save 10%</span>
+      </button>
+
+      <button
+        type="button"
+        class="pack-tile"
+        data-price="4800"
+        aria-pressed="false"
+      >
+        <span class="pack-tile__name">{% if settings.theme_skin == 'skin-2' %}3 Bottles{% else %}3 Bags{% endif %}</span>
+        <div class="pack-tile__price-group">
+          <span class="pack-tile__price">{% if settings.theme_skin == 'skin-2' %}$69{% else %}$48{% endif %}</span>
+          <span class="pack-tile__unit-price">{% if settings.theme_skin == 'skin-2' %}$0.76 / day{% else %}$0.47 / cup{% endif %}</span>
+        </div>
+        <span class="pack-tile__bottom-badge">Save 20%</span>
+      </button>
+    </div>
+  </pack-selector>
 {%- endif -%}
 
 {% schema %}
@@ -89,25 +144,19 @@
   "settings": [
     {
       "type": "header",
-      "content": "t:cro.headers.pack_economics"
-    },
-    {
-      "type": "paragraph",
-      "content": "t:cro.paragraphs.pack_economics"
+      "content": "t:cro.headers.guardrail"
     },
     {
       "type": "text",
       "id": "tier_2_badge",
       "label": "t:cro.labels.tier_2_badge",
-      "default": "Popular",
-      "info": "t:cro.infos.tier_2_badge"
+      "default": "Most Popular"
     },
     {
       "type": "checkbox",
       "id": "show_per_serving_price",
       "label": "t:cro.labels.show_per_serving_price",
-      "default": true,
-      "info": "t:cro.infos.show_per_serving_price"
+      "default": true
     }
   ]
 }

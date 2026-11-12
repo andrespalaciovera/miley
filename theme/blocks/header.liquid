@@ -1,49 +1,36 @@
 {% doc %}
-  Renders the theme's storefront header: shop title, main menu,
-  customer account entry, and cart link. Composed directly in
-  layout/theme.liquid so it wraps every page.
+  Renders the storefront header matching Figma PDP & Storefront header (Node 489:2200).
+  Adapts dynamically to the active skin persona ('Solstice Coffee Co.' vs 'Vitality Labs').
 {% enddoc %}
 
-<header {{ block.shopify_attributes }}>
-  <h2 class="header__title">
-    {{ shop.name | link_to: routes.root_url }}
-  </h2>
+<header class="header" {{ block.shopify_attributes }}>
+  <div class="header__left">
+    <a href="{{ routes.root_url }}" class="header__back-btn" aria-label="Go back">
+      <img src="{{ 'icon-back-arrow.svg' | asset_url }}" alt="" width="16" height="16" aria-hidden="true">
+    </a>
+  </div>
 
-  <div class="header__menu">
-    {% for link in block.settings.menu.links %}
-      {{ link.title | link_to: link.url }}
-    {% endfor %}
+  <div class="header__brand">
+    <a href="{{ routes.root_url }}" class="header__brand-link">
+      {%- if settings.theme_skin == 'skin-2' -%}
+        Vitality Labs
+      {%- else -%}
+        Solstice Coffee Co.
+      {%- endif -%}
+    </a>
   </div>
 
   <div class="header__icons">
-    {% if shop.customer_accounts_enabled %}
-      <shopify-account menu="{{ block.settings.customer_account_menu }}">
-        {{ 'icon-account.svg' | inline_asset_content }}
-      </shopify-account>
-    {% endif %}
-
-    <a href="{{ routes.cart_url }}" data-cart-trigger aria-label="{{ 'cart.title' | t }}">
-      <sup data-cart-count {% if cart.item_count == 0 %}style="display: none;"{% endif %}>{{ cart.item_count }}</sup>
-      {{ 'icon-cart.svg' | inline_asset_content }}
-    </a>
+    <button type="button" class="header__cart-btn" data-cart-trigger aria-label="{{ 'cart.title' | t }}">
+      <img src="{{ 'icon-cart-bag.svg' | asset_url }}" alt="" width="22" height="24" aria-hidden="true">
+      <sup data-cart-count class="header__cart-count" {% if cart.item_count == 0 %}style="display: none;"{% endif %}>{{ cart.item_count }}</sup>
+    </button>
   </div>
 </header>
 
 {% schema %}
 {
   "name": "t:general.header",
-  "settings": [
-    {
-      "type": "link_list",
-      "id": "menu",
-      "label": "t:labels.menu"
-    },
-    {
-      "type": "link_list",
-      "id": "customer_account_menu",
-      "label": "t:labels.customer_account_menu",
-      "default": "customer-account-main-menu"
-    }
-  ]
+  "settings": []
 }
 {% endschema %}

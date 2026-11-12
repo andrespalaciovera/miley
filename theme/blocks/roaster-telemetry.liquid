@@ -1,64 +1,60 @@
 {% doc %}
-  Renders the Roaster Telemetry & Product Profile circular segmented gauges.
-  Implements SDD v1.2.0 Zone 1 Sensory Telemetry and Onyx Coffee Lab sensory display.
+  Renders the Product Profile & Sensory Telemetry block.
+  Skin 1: 4 circular segmented gauges (Roast level, Acidity, Body, Sweetness).
+  Skin 2: Functional benefit pills ('Supports Focus', 'No Jitters', 'Non-Habit Forming', 'Clean Energy').
 {% enddoc %}
 
 {{ 'component-telemetry.css' | asset_url | stylesheet_tag }}
 
-{%- liquid
-  assign roast = product.metafields.custom.roast_level.value | default: 3
-  assign acidity = 4
-  assign body = 3
-  assign caffeine = 3
-
-  if product.metafields.custom.cupping_profile != blank
-    assign cupping = product.metafields.custom.cupping_profile.value
-    if cupping.acidity != blank
-      assign acidity = cupping.acidity | times: 5.0 | divided_by: 10.0 | round
-    endif
-    if cupping.body != blank
-      assign body = cupping.body | times: 5.0 | divided_by: 10.0 | round
-    endif
-  endif
-  assign roast_label = 'products.telemetry.roast_level' | t
-  assign acidity_label = 'products.telemetry.acidity' | t
-  assign body_label = 'products.telemetry.body' | t
--%}
-
-<div class="product-profile-gauges" {{ block.shopify_attributes }}>
-  <div class="gauge-metric">
-    {% render 'gauge-svg', level: roast, label: roast_label %}
-    <span class="gauge-metric__label">{{ roast_label }}</span>
+{%- if settings.theme_skin == 'skin-2' -%}
+  <div class="product-profile-pills" {{ block.shopify_attributes }}>
+    <div class="product-pills-row">
+      <span class="benefit-pill">Supports Focus</span>
+      <span class="benefit-pill">No Jitters</span>
+      <span class="benefit-pill">Non-Habit Forming</span>
+    </div>
+    <div class="product-pills-row">
+      <span class="benefit-pill">Clean Energy</span>
+    </div>
   </div>
+{%- else -%}
+  {%- liquid
+    assign roast = product.metafields.custom.roast_level.value | default: 3
+    assign acidity = 4
+    assign body = 3
+    assign sweetness = 4
 
-  <div class="gauge-metric">
-    {% render 'gauge-svg', level: acidity, label: acidity_label %}
-    <span class="gauge-metric__label">{{ acidity_label }}</span>
-  </div>
+    assign roast_label = 'products.telemetry.roast_level' | t
+    assign acidity_label = 'products.telemetry.acidity' | t
+    assign body_label = 'products.telemetry.body' | t
+  -%}
 
-  <div class="gauge-metric">
-    {% render 'gauge-svg', level: body, label: body_label %}
-    <span class="gauge-metric__label">{{ body_label }}</span>
-  </div>
+  <div class="product-profile-gauges" {{ block.shopify_attributes }}>
+    <div class="gauge-metric">
+      {% render 'gauge-svg', level: roast, label: roast_label %}
+      <span class="gauge-metric__label">{{ roast_label }}</span>
+    </div>
 
-  <div class="gauge-metric">
-    {% render 'gauge-svg', level: caffeine, label: 'Caffeine' %}
-    <span class="gauge-metric__label">Caffeine</span>
+    <div class="gauge-metric">
+      {% render 'gauge-svg', level: acidity, label: acidity_label %}
+      <span class="gauge-metric__label">{{ acidity_label }}</span>
+    </div>
+
+    <div class="gauge-metric">
+      {% render 'gauge-svg', level: body, label: body_label %}
+      <span class="gauge-metric__label">{{ body_label }}</span>
+    </div>
+
+    <div class="gauge-metric">
+      {% render 'gauge-svg', level: sweetness, label: 'Sweetness' %}
+      <span class="gauge-metric__label">Sweetness</span>
+    </div>
   </div>
-</div>
+{%- endif -%}
 
 {% schema %}
 {
   "name": "t:general.roaster_telemetry",
-  "settings": [
-    {
-      "type": "header",
-      "content": "t:cro.headers.guardrail"
-    },
-    {
-      "type": "paragraph",
-      "content": "t:cro.paragraphs.guardrail_telemetry"
-    }
-  ]
+  "settings": []
 }
 {% endschema %}

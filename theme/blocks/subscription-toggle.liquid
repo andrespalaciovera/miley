@@ -61,11 +61,77 @@
         {%- endfor -%}
       </div>
 
-      <div class="subscription-toggle__reassurance">
-        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-          <path d="M8 1a3.5 3.5 0 0 0-3.5 3.5V6H3.5A1.5 1.5 0 0 0 2 7.5v6A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5v-6A1.5 1.5 0 0 0 12.5 6h-1V4.5A3.5 3.5 0 0 0 8 1zm2 5H6V4.5a2 2 0 1 1 4 0V6z"/>
+      <div class="subscription-reassurance">
+        <svg class="subscription-reassurance__icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
         </svg>
-        <span>{{ reassurance_text }}</span>
+        <span class="subscription-reassurance__text">{{ reassurance_text }}</span>
+      </div>
+    </div>
+  </subscription-toggle>
+{%- else -%}
+  <subscription-toggle
+    class="subscription-toggle"
+    data-product-id="{{ product.id | default: 'demo' }}"
+    {{ block.shopify_attributes }}
+  >
+    <div class="subscription-toggle__segmented-control" role="tablist">
+      <button
+        type="button"
+        class="subscription-tab subscription-tab--active"
+        data-mode="onetime"
+        role="tab"
+        aria-selected="true"
+      >
+        One-time purchase
+      </button>
+
+      <button
+        type="button"
+        class="subscription-tab"
+        data-mode="subscribe"
+        role="tab"
+        aria-selected="false"
+      >
+        Subscribe & Save 15%
+      </button>
+    </div>
+
+    <div class="subscription-toggle__frequency-section" hidden>
+      <div class="subscription-frequency__grid" role="group" aria-label="Delivery frequency">
+        <button
+          type="button"
+          class="frequency-tile frequency-tile--selected"
+          aria-pressed="true"
+        >
+          <span class="frequency-tile__prefix">Every</span>
+          <span class="frequency-tile__value">2 Weeks</span>
+        </button>
+
+        <button
+          type="button"
+          class="frequency-tile"
+          aria-pressed="false"
+        >
+          <span class="frequency-tile__prefix">Every</span>
+          <span class="frequency-tile__value">4 Weeks</span>
+        </button>
+
+        <button
+          type="button"
+          class="frequency-tile"
+          aria-pressed="false"
+        >
+          <span class="frequency-tile__prefix">Every</span>
+          <span class="frequency-tile__value">6 Weeks</span>
+        </button>
+      </div>
+
+      <div class="subscription-reassurance">
+        <svg class="subscription-reassurance__icon" viewBox="0 0 24 24" aria-hidden="true" width="14" height="14">
+          <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+        </svg>
+        <span class="subscription-reassurance__text">Auto-renews, cancel anytime</span>
       </div>
     </div>
   </subscription-toggle>
@@ -77,18 +143,13 @@
   "settings": [
     {
       "type": "header",
-      "content": "t:cro.headers.subscription"
-    },
-    {
-      "type": "paragraph",
-      "content": "t:cro.paragraphs.subscription"
+      "content": "t:cro.headers.guardrail"
     },
     {
       "type": "text",
       "id": "sub_discount_badge",
       "label": "t:cro.labels.sub_discount_badge",
-      "default": "Subscribe & Save 15%",
-      "info": "t:cro.infos.sub_discount_badge"
+      "default": "Subscribe & Save 15%"
     },
     {
       "type": "text",

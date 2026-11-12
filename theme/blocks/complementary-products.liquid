@@ -1,0 +1,89 @@
+{% doc %}
+  Renders the Complementary Products carousel matching Figma Node 491:1023.
+  Features Ceramic Pour-Over Dripper with instant quick-add.
+{% enddoc %}
+
+<div class="complementary-products-section" {{ block.shopify_attributes }}>
+  <div class="complementary-header">
+    <span class="complementary-title">You may also like</span>
+  </div>
+
+  <div class="complementary-cards-scroll">
+    <div class="complementary-card">
+      <div class="complementary-card__media">
+        {%- if settings.theme_skin == 'skin-2' -%}
+          <img src="{{ 'vitality-focus-citrus-yellow.png' | asset_url }}" alt="Hydration Electrolytes" class="complementary-card__img" width="162" height="161" loading="lazy">
+        {%- else -%}
+          <img src="{{ 'pour-over-dripper.png' | asset_url }}" alt="Ceramic Pour-Over Dripper" class="complementary-card__img" width="162" height="161" loading="lazy">
+        {%- endif -%}
+      </div>
+
+      <div class="complementary-card__info">
+        <div class="complementary-card__stars" aria-label="5 stars">
+          <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="12" height="12">
+          <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="12" height="12">
+          <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="12" height="12">
+          <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="12" height="12">
+          <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="12" height="12">
+        </div>
+        <h4 class="complementary-card__title">
+          {%- if settings.theme_skin == 'skin-2' -%}
+            Daily Electrolytes Canister
+          {%- else -%}
+            Ceramic Pour-Over Dripper
+          {%- endif -%}
+        </h4>
+      </div>
+
+      <button type="button" class="complementary-card__atc" data-quick-add>
+        {%- if settings.theme_skin == 'skin-2' -%}
+          Add for $14
+        {%- else -%}
+          Add for $9
+        {%- endif -%}
+      </button>
+    </div>
+
+    <div class="complementary-card">
+      <div class="complementary-card__media">
+        {%- if settings.theme_skin == 'skin-2' -%}
+          <img src="{{ 'vitality-focus-citrus-blue.png' | asset_url }}" alt="Night Recovery Complex" class="complementary-card__img" width="162" height="161" loading="lazy">
+        {%- else -%}
+          <img src="{{ 'solstice-coffee-bag.png' | asset_url }}" alt="Solstice Coffee Roaster Filter Pack" class="complementary-card__img" width="162" height="161" loading="lazy">
+        {%- endif -%}
+      </div>
+
+      <div class="complementary-card__info">
+        <div class="complementary-card__stars" aria-label="5 stars">
+          <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="12" height="12">
+          <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="12" height="12">
+          <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="12" height="12">
+          <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="12" height="12">
+          <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="12" height="12">
+        </div>
+        <h4 class="complementary-card__title">
+          {%- if settings.theme_skin == 'skin-2' -%}
+            Night Recovery Complex
+          {%- else -%}
+            Bleached Paper Filters (100ct)
+          {%- endif -%}
+        </h4>
+      </div>
+
+      <button type="button" class="complementary-card__atc" data-quick-add>
+        {%- if settings.theme_skin == 'skin-2' -%}
+          Add for $24
+        {%- else -%}
+          Add for $6
+        {%- endif -%}
+      </button>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Complementary Products",
+  "settings": []
+}
+{% endschema %}

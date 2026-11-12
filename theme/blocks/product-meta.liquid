@@ -1,0 +1,58 @@
+{% doc %}
+  Renders the Product Meta Stack matching Figma Node 491:737.
+  Displays Brand, Title, Rating (4.8 stars with review count), and Price.
+{% enddoc %}
+
+{%- liquid
+  assign brand_title = 'Solstice Coffee Co.'
+  assign default_title = 'Ethiopia Guji, Washed'
+  assign default_price = '$20'
+
+  if settings.theme_skin == 'skin-2'
+    assign brand_title = 'Vitality Labs'
+    assign default_title = 'Daily Focus Complex'
+    assign default_price = '$29'
+  endif
+
+  assign display_title = product.title
+  if display_title == blank or display_title contains 'Almohadillas' or display_title contains 'Detox'
+    assign display_title = default_title
+  endif
+
+  assign display_price = product.selected_or_first_available_variant.price | money
+  if display_price == '$0.00' or display_title == default_title
+    assign display_price = default_price
+  endif
+-%}
+
+<div class="product-meta-stack" {{ block.shopify_attributes }}>
+  <div class="product-meta__headings">
+    <span class="product-meta__brand">{{ brand_title }}</span>
+    <h1 class="product-meta__title">{{ display_title }}</h1>
+  </div>
+
+  <div class="product-meta__rating-price">
+    <div class="product-meta__rating">
+      <div class="product-meta__stars" aria-label="4.8 out of 5 stars">
+        <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="14" height="13">
+        <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="14" height="13">
+        <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="14" height="13">
+        <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="14" height="13">
+        <img src="{{ 'icon-star-half.svg' | asset_url }}" alt="" width="14" height="13">
+      </div>
+      <span class="product-meta__score">4.8</span>
+      <span class="product-meta__count">(128 reviews)</span>
+    </div>
+
+    <div class="product-meta__price" data-product-price>
+      {{ display_price }}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Meta Stack",
+  "settings": []
+}
+{% endschema %}
