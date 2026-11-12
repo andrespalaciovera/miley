@@ -1,0 +1,39 @@
+{% doc %}
+  Renders the Origin & Sourcing Transparency Panel.
+  Implements SDD v1.2.0 Zone 3 Transparency card.
+{% enddoc %}
+
+{{ 'component-telemetry.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign origin_data = product.metafields.custom.origin_telemetry.value
+  assign origin_country = origin_data.country | default: 'Ethiopia'
+  assign origin_story = product.metafields.custom.origin_story.value | default: origin_data.description
+  if origin_story == blank
+    assign origin_story = 'Grown at 1,950–2,100 masl on the Refisa washing station in the Guji Zone, Ethiopia. Sourced direct from a cooperative of 210 smallholder farmers. Fully washed and dried on raised beds for 12–15 days.'
+  endif
+-%}
+
+<div class="origin-facts-panel" {{ block.shopify_attributes }}>
+  <div class="origin-facts-panel__content">
+    <div class="origin-facts-panel__badge">
+      <span>Origin / Sourcing</span>
+    </div>
+
+    <div class="origin-facts-panel__header">
+      <svg class="origin-facts-panel__icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/>
+      </svg>
+      <h3 class="origin-facts-panel__title">{{ origin_country }}</h3>
+    </div>
+
+    <p class="origin-facts-panel__story">{{ origin_story }}</p>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:general.origin_telemetry",
+  "settings": []
+}
+{% endschema %}

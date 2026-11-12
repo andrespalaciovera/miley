@@ -1,0 +1,28 @@
+{% doc %}
+  Renders the Sensory Radar pure-SVG chart block.
+  Visualizes cupping profile metrics (Acidity, Sweetness, Body, Clean Cup, Finish).
+{% enddoc %}
+
+{{ 'component-sensory-radar.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'component-sensory-radar.js' | asset_url }}" defer="defer"></script>
+
+{%- if product.metafields.custom.cupping_profile != blank -%}
+  <sensory-radar
+    data-product-id="{{ product.id }}"
+    {{ block.shopify_attributes }}
+  >
+    <div class="sensory-radar__header">
+      <h3 class="sensory-radar__title">{{ 'products.telemetry.cupping_profile' | t }}</h3>
+    </div>
+    <div class="sensory-radar__svg-container">
+      {% comment %} Hydrated dynamically by <sensory-radar> {% endcomment %}
+    </div>
+  </sensory-radar>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:general.sensory_radar",
+  "settings": []
+}
+{% endschema %}

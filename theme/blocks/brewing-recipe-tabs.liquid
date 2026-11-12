@@ -1,0 +1,63 @@
+{% doc %}
+  Renders the Brewing Guide Panel & Metrics.
+  Implements SDD v1.2.0 Zone 3 Brewing Guide.
+{% enddoc %}
+
+{{ 'component-telemetry.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign brew_data = product.metafields.custom.multi_brew_recipes.value
+  assign ratio = brew_data.ratio | default: '60g / 1L'
+  assign temp = brew_data.temperature | default: '205°F'
+  assign brew_time = brew_data.time | default: '3:00'
+  assign grind_desc = brew_data.grind | default: 'Grind: Medium-coarse (pour-over) or fine (espresso).'
+-%}
+
+<div class="brewing-guide-panel" {{ block.shopify_attributes }}>
+  <div class="brewing-guide-panel__header">
+    {{ 'products.telemetry.brewing_guide' | t }}
+  </div>
+
+  <div class="brewing-guide-panel__subtitle">
+    {{ grind_desc }}
+  </div>
+
+  <div class="brewing-guide-table">
+    <div class="brewing-metric-item">
+      <div class="brewing-metric-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 3a1 1 0 0 1 1 1v2.07A8.001 8.001 0 0 1 20 14a8 8 0 1 1-16 0 8.001 8.001 0 0 1 7-7.93V4a1 1 0 0 1 1-1zm0 5a6 6 0 1 0 0 12 6 6 0 0 0 0-12zm0 2a1 1 0 0 1 1 1v2.586l1.707 1.707a1 1 0 0 1-1.414 1.414l-2-2A1 1 0 0 1 11 14V11a1 1 0 0 1 1-1z"/>
+        </svg>
+      </div>
+      <span class="brewing-metric-val">{{ ratio }}</span>
+      <span class="brewing-metric-label">Ratio</span>
+    </div>
+
+    <div class="brewing-metric-item">
+      <div class="brewing-metric-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M15 13V5a3 3 0 0 0-6 0v8a5 5 0 1 0 6 0zm-3-9a1 1 0 0 1 1 1v3h-2V5a1 1 0 0 1 1-1z"/>
+        </svg>
+      </div>
+      <span class="brewing-metric-val">{{ temp }}</span>
+      <span class="brewing-metric-label">Water Temp</span>
+    </div>
+
+    <div class="brewing-metric-item">
+      <div class="brewing-metric-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 10.414l2.293 2.293a1 1 0 0 1-1.414 1.414l-2.586-2.586A1 1 0 0 1 11 12.414V7a1 1 0 0 1 2 0z"/>
+        </svg>
+      </div>
+      <span class="brewing-metric-val">{{ brew_time }}</span>
+      <span class="brewing-metric-label">Brew Time</span>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:general.brewing_recipes",
+  "settings": []
+}
+{% endschema %}

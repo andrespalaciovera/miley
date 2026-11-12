@@ -1,0 +1,82 @@
+/**
+ * Component: Pure-SVG Sensory Radar Chart
+ * 0 external libraries, pure tokenized SVG
+ */
+
+sensory-radar {
+  display: block;
+  width: 100%;
+  margin: var(--space-xl) 0;
+  padding: var(--space-xl) var(--space-lg);
+  background-color: var(--surface-subtle);
+  border: var(--stroke-hairline) solid var(--border-default);
+  border-radius: var(--radius-panel-flat);
+  box-sizing: border-box;
+}
+
+.sensory-radar__header {
+  margin-bottom: var(--space-md);
+  text-align: center;
+}
+
+.sensory-radar__title {
+  font-family: var(--font-heading);
+  font-size: var(--h4-size);
+  line-height: var(--h4-line-height);
+  color: var(--text-primary);
+  margin-bottom: var(--space-xxs);
+}
+
+.sensory-radar__svg-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.sensory-radar__svg {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  overflow: visible;
+}
+
+.radar-grid-line {
+  stroke: var(--border-default);
+  stroke-width: 1;
+  fill: none;
+}
+
+.radar-axis-line {
+  stroke: var(--border-divider);
+  stroke-width: 1;
+}
+
+.radar-polygon {
+  fill: var(--color-primary);
+  fill-opacity: 0.25;
+  stroke: var(--color-primary);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  transition: all 0.4s ease-out;
+}
+
+[data-skin="skin-2"] .radar-polygon {
+  fill: var(--color-primary);
+  fill-opacity: 0.35;
+  stroke: var(--color-primary);
+}
+
+.radar-data-point {
+  fill: var(--color-primary);
+  stroke: var(--bg-main);
+  stroke-width: 2;
+}
+
+.radar-label {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  fill: var(--text-primary);
+  text-anchor: middle;
+  dominant-baseline: central;
+}

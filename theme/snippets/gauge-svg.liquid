@@ -1,0 +1,53 @@
+{% comment %}
+  Renders a 5-segment circular gauge metric in pure SVG.
+  Params:
+    level: Integer 1-5 indicating active score.
+    label: Accessible label.
+{% endcomment %}
+
+{%- liquid
+  assign score = level | default: 3 | plus: 0
+  if score > 5
+    assign score = 5
+  elsif score < 0
+    assign score = 0
+  endif
+-%}
+
+<svg
+  class="gauge-metric__svg"
+  viewBox="0 0 56 56"
+  width="54"
+  height="54"
+  role="meter"
+  aria-label="{{ label }}"
+  aria-valuenow="{{ score }}"
+  aria-valuemin="1"
+  aria-valuemax="5"
+>
+  {% comment %} Segment 1 {% endcomment %}
+  <path
+    class="gauge-segment{% if score >= 1 %} gauge-segment--active{% endif %}"
+    d="M 32.99 4.52 A 24 24 0 0 1 50.83 20.58 L 43.22 23.05 A 16 16 0 0 0 31.33 12.35 Z"
+  />
+  {% comment %} Segment 2 {% endcomment %}
+  <path
+    class="gauge-segment{% if score >= 2 %} gauge-segment--active{% endif %}"
+    d="M 51.87 25.49 A 24 24 0 0 1 42.11 47.42 L 37.40 40.94 A 16 16 0 0 0 43.91 26.33 Z"
+  />
+  {% comment %} Segment 3 {% endcomment %}
+  <path
+    class="gauge-segment{% if score >= 3 %} gauge-segment--active{% endif %}"
+    d="M 37.76 49.93 A 24 24 0 0 1 13.89 47.42 L 18.60 40.94 A 16 16 0 0 0 34.51 42.62 Z"
+  />
+  {% comment %} Segment 4 {% endcomment %}
+  <path
+    class="gauge-segment{% if score >= 4 %} gauge-segment--active{% endif %}"
+    d="M 10.16 44.06 A 24 24 0 0 1 5.17 20.58 L 12.78 23.05 A 16 16 0 0 0 16.11 38.71 Z"
+  />
+  {% comment %} Segment 5 {% endcomment %}
+  <path
+    class="gauge-segment{% if score >= 5 %} gauge-segment--active{% endif %}"
+    d="M 7.22 16.00 A 24 24 0 0 1 28.00 4.00 L 28.00 12.00 A 16 16 0 0 0 14.14 20.00 Z"
+  />
+</svg>

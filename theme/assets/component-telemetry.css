@@ -1,0 +1,188 @@
+/**
+ * Component: Sensory & Telemetry Panels
+ * Tokenized styles conforming to Figma Skins 1 & 2
+ */
+
+/* --- 1. Product Profile Gauges --- */
+.product-profile-gauges {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: var(--space-xl) var(--space-lg);
+  border-top: var(--stroke-hairline) solid var(--border-default);
+  border-bottom: var(--stroke-hairline) solid var(--border-default);
+  margin: var(--space-xl) 0;
+  gap: var(--space-md);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.gauge-metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  flex: 1 1 0;
+  min-width: 68px;
+}
+
+.gauge-metric__svg {
+  width: var(--gauge-diameter, 54px);
+  height: var(--gauge-diameter, 54px);
+}
+
+.gauge-segment {
+  fill: var(--surface-track);
+  transition: fill 0.25s ease;
+}
+
+.gauge-segment--active {
+  fill: var(--color-tertiary);
+}
+
+[data-skin="skin-2"] .gauge-segment--active {
+  fill: var(--color-primary);
+}
+
+.gauge-metric__label {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  line-height: var(--label-line-height);
+  color: var(--text-primary);
+  letter-spacing: var(--label-letter-spacing);
+  white-space: nowrap;
+}
+
+/* --- 2. Origin & Transparency Facts Panel --- */
+.origin-facts-panel {
+  position: relative;
+  border-radius: var(--radius-panel-photo);
+  overflow: hidden;
+  padding: var(--space-xl) var(--space-lg);
+  background-color: var(--surface-subtle);
+  border: var(--stroke-hairline) solid var(--border-default);
+  margin: var(--space-xl) 0;
+}
+
+.origin-facts-panel__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.origin-facts-panel__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xxs) var(--space-sm);
+  background-color: var(--color-secondary);
+  color: var(--text-on-secondary);
+  border-radius: var(--radius-full);
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  width: fit-content;
+}
+
+.origin-facts-panel__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.origin-facts-panel__icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  fill: var(--color-primary);
+}
+
+.origin-facts-panel__title {
+  font-family: var(--font-heading);
+  font-size: var(--h2-size);
+  line-height: var(--h2-line-height);
+  letter-spacing: var(--h2-letter-spacing);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.origin-facts-panel__story {
+  font-family: var(--font-body);
+  font-size: var(--body-size);
+  line-height: var(--body-line-height);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* --- 3. Brewing Guide Panel --- */
+.brewing-guide-panel {
+  padding: var(--space-xl) var(--space-lg);
+  border-radius: var(--radius-panel-flat);
+  background-color: var(--surface-subtle);
+  border: var(--stroke-hairline) solid var(--border-default);
+  margin: var(--space-xl) 0;
+}
+
+.brewing-guide-panel__header {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  color: var(--color-secondary);
+  letter-spacing: var(--label-letter-spacing);
+  margin-bottom: var(--space-xxs);
+}
+
+[data-skin="skin-2"] .brewing-guide-panel__header {
+  color: var(--color-primary);
+}
+
+.brewing-guide-panel__subtitle {
+  font-family: var(--font-body);
+  font-size: var(--body-size);
+  color: var(--text-primary);
+  margin-bottom: var(--space-lg);
+}
+
+.brewing-guide-table {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.brewing-metric-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  flex: 1 1 0;
+}
+
+.brewing-metric-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+}
+
+.brewing-metric-icon svg {
+  width: 32px;
+  height: 32px;
+  fill: currentColor;
+}
+
+.brewing-metric-val {
+  font-family: var(--font-heading);
+  font-size: var(--h4-size);
+  line-height: var(--h4-line-height);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.brewing-metric-label {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  line-height: var(--label-line-height);
+  color: var(--text-muted);
+}

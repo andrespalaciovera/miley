@@ -17,6 +17,8 @@
         {%- endif -%}
       </div>
 
+      {% block 'roaster-telemetry' %}{% endblock %}
+
       {% block 'pack-selector' %}{% endblock %}
 
       {% block 'subscription-toggle' %}{% endblock %}
@@ -47,6 +49,12 @@
           {{ form | payment_button }}
         {% endform %}
       </product-form-controller>
+
+      {% block 'sensory-radar' %}{% endblock %}
+
+      {% block 'origin-telemetry' %}{% endblock %}
+
+      {% block 'brewing-recipe-tabs' %}{% endblock %}
     </div>
   </div>
 
@@ -54,3 +62,4 @@
 {% endblock %}
 
 <script src="{{ 'component-product-form.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'anim-scrubber.js' | asset_url }}" defer="defer"></script>
