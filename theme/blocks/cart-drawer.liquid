@@ -1,0 +1,137 @@
+{% doc %}
+  Renders the Cart Drawer with Tiered Milestone Gamification.
+  Implements SDD v1.2.0 Section 9.3 CRO Gamification and Section 10.1 Cart Controller.
+{% enddoc %}
+
+{{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'component-cart-drawer.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign shipping_threshold = settings.free_shipping_threshold | default: 35
+  assign gift_threshold = settings.free_gift_threshold | default: 60
+  assign gift_name = settings.free_gift_name | default: 'Free Sample Bag'
+
+  assign shipping_threshold_cents = shipping_threshold | times: 100
+  assign gift_threshold_cents = gift_threshold | times: 100
+  assign progress_pct = cart.total_price | times: 100 | divided_by: gift_threshold_cents
+  if progress_pct > 100
+    assign progress_pct = 100
+  endif
+
+  assign tier_1_reached = false
+  if cart.total_price >= shipping_threshold_cents
+    assign tier_1_reached = true
+  endif
+
+  assign tier_2_reached = false
+  if cart.total_price >= gift_threshold_cents
+    assign tier_2_reached = true
+  endif
+-%}
+
+<cart-drawer
+  class="cart-drawer"
+  data-shipping-threshold="{{ shipping_threshold }}"
+  data-gift-threshold="{{ gift_threshold }}"
+  data-gift-name="{{ gift_name }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="cart-drawer__scrim" aria-hidden="true"></div>
+
+  <div class="cart-drawer__panel" role="dialog" aria-modal="true" aria-label="{{ 'cart.title' | t }}">
+    <div class="cart-drawer__header">
+      <h2 class="cart-drawer__title">{{ 'cart.title' | t }}</h2>
+      <button type="button" class="cart-drawer__close-btn" aria-label="Close cart">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="cart-gamification">
+      <div class="cart-gamification__message" data-gamification-message>
+        {%- if tier_1_reached == false -%}
+          {%- assign remaining_shipping = shipping_threshold_cents | minus: cart.total_price | money -%}
+          {{ 'cart.free_shipping_away' | t: amount: remaining_shipping }}
+        {%- elsif tier_2_reached == false -%}
+          {%- assign remaining_gift = gift_threshold_cents | minus: cart.total_price | money -%}
+          {{ 'cart.free_gift_away' | t: amount: remaining_gift, gift_name: gift_name }}
+        {%- else -%}
+          {{ 'cart.free_gift_unlocked' | t }}
+        {%- endif -%}
+      </div>
+
+      <div class="cart-gamification__track">
+        <div class="cart-gamification__bar" data-gamification-bar style="width: {{ progress_pct }}%;"></div>
+      </div>
+
+      <div class="cart-gamification__milestones">
+        <span class="milestone-badge{% if tier_1_reached %} milestone-badge--achieved{% endif %}" data-milestone-tier-1>
+          Free Shipping (${{ shipping_threshold }})
+        </span>
+        <span class="milestone-badge{% if tier_2_reached %} milestone-badge--achieved{% endif %}" data-milestone-tier-2>
+          {{ gift_name }} (${{ gift_threshold }})
+        </span>
+      </div>
+    </div>
+
+    <div class="cart-drawer__body">
+      {%- if cart.item_count == 0 -%}
+        <div class="cart-drawer__empty">
+          <p>{{ 'cart.empty' | t }}</p>
+        </div>
+      {%- else -%}
+        {%- for item in cart.items -%}
+          <div class="cart-item" data-line-key="{{ item.key }}">
+            <div class="cart-item__media">
+              {%- if item.image -%}
+                <img src="{{ item.image | image_url: width: 128 }}" alt="{{ item.title | escape }}" width="64" height="64" loading="lazy">
+              {%- endif -%}
+            </div>
+            <div class="cart-item__details">
+              <div class="cart-item__top-row">
+                <a href="{{ item.url }}" class="cart-item__title">{{ item.product.title }}</a>
+                <span class="cart-item__price">{{ item.final_line_price | money }}</span>
+              </div>
+              {%- unless item.product.has_only_default_variant -%}
+                <span class="cart-item__variant">{{ item.variant.title }}</span>
+              {%- endunless -%}
+              {%- if item.selling_plan_allocation -%}
+                <span class="cart-item__plan-badge">{{ item.selling_plan_allocation.selling_plan.name }}</span>
+              {%- endif -%}
+              <div class="cart-item__actions">
+                <div class="cart-item__stepper">
+                  <button type="button" class="cart-item__stepper-btn" data-cart-action="decrement" data-line-key="{{ item.key }}" data-current-qty="{{ item.quantity }}">−</button>
+                  <span class="cart-item__stepper-val">{{ item.quantity }}</span>
+                  <button type="button" class="cart-item__stepper-btn" data-cart-action="increment" data-line-key="{{ item.key }}" data-current-qty="{{ item.quantity }}">+</button>
+                </div>
+                <button type="button" class="cart-item__remove-btn" data-cart-action="remove" data-line-key="{{ item.key }}">{{ 'cart.remove' | t }}</button>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+    <div class="cart-drawer__footer">
+      <div class="cart-drawer__subtotal-row">
+        <span class="cart-drawer__subtotal-label">{{ 'cart.subtotal' | t }}</span>
+        <span class="cart-drawer__subtotal-val" data-cart-subtotal>{{ cart.total_price | money }}</span>
+      </div>
+      <p class="cart-drawer__note">{{ 'cart.shipping_at_checkout' | t }}</p>
+
+      {%- form 'cart', cart -%}
+        <button type="submit" name="checkout" class="cart-drawer__checkout-btn">
+          {{ 'cart.checkout' | t }}
+        </button>
+      {%- endform -%}
+    </div>
+  </div>
+</cart-drawer>
+
+{% schema %}
+{
+  "name": "t:general.cart_drawer",
+  "settings": []
+}
+{% endschema %}

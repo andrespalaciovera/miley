@@ -17,7 +17,15 @@
     "checkout": "Checkout",
     "title": "Cart",
     "update": "Update",
-    "remove": "Remove"
+    "remove": "Remove",
+    "subtotal": "Subtotal:",
+    "shipping_at_checkout": "Shipping and taxes calculated at checkout.",
+    "free_shipping_away": "You're only {{ amount }} away from Free Shipping!",
+    "free_shipping_unlocked": "🎉 You've unlocked Free Shipping!",
+    "free_gift_away": "Add {{ amount }} more to unlock {{ gift_name }}!",
+    "free_gift_unlocked": "🎁 Free Gift Unlocked!",
+    "empty": "Your cart is empty.",
+    "continue_shopping": "Continue shopping"
   },
   "customers": {
     "login": {
