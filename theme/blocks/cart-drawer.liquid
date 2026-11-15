@@ -82,15 +82,28 @@
         </div>
       {%- else -%}
         {%- for item in cart.items -%}
+          {%- liquid
+            assign item_title = item.product.title
+            assign item_img = item.image | image_url: width: 128
+            if item_title contains 'Almohadillas' or item_title contains 'Detox'
+              if settings.theme_skin == 'skin-2'
+                assign item_title = 'Daily Focus Complex'
+                assign item_img = 'vitality-daily-focus.png' | asset_url
+              else
+                assign item_title = 'Ethiopia Guji, Washed'
+                assign item_img = 'solstice-coffee-bag.png' | asset_url
+              endif
+            endif
+          -%}
           <div class="cart-item" data-line-key="{{ item.key }}">
             <div class="cart-item__media">
-              {%- if item.image -%}
-                <img src="{{ item.image | image_url: width: 128 }}" alt="{{ item.title | escape }}" width="64" height="64" loading="lazy">
+              {%- if item_img -%}
+                <img src="{{ item_img }}" alt="{{ item_title | escape }}" width="64" height="64" loading="lazy">
               {%- endif -%}
             </div>
             <div class="cart-item__details">
               <div class="cart-item__top-row">
-                <a href="{{ item.url }}" class="cart-item__title">{{ item.product.title }}</a>
+                <a href="{{ item.url }}" class="cart-item__title">{{ item_title }}</a>
                 <span class="cart-item__price">{{ item.final_line_price | money }}</span>
               </div>
               {%- unless item.product.has_only_default_variant -%}
