@@ -179,3 +179,27 @@ pack-selector {
 .pack-tile--selected .pack-tile__bottom-badge .pack-tile__badge-icon {
   display: none;
 }
+
+/* Responsive Pack Grid Safety (320px+ & 200% zoom) */
+.pack-tile {
+  min-width: 0;
+}
+
+@media (max-width: 359px) {
+  .pack-selector__grid {
+    gap: var(--space-xs);
+  }
+
+  .pack-tile {
+    padding-inline: var(--space-xs);
+  }
+
+  .pack-tile__floating-badge,
+  .pack-tile__name,
+  .pack-tile__price,
+  .pack-tile__unit-price,
+  .pack-tile__bottom-badge {
+    white-space: normal;
+    text-align: center;
+  }
+}

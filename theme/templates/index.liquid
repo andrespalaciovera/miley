@@ -21,6 +21,17 @@
         {% block 'pack-selector' %}{% endblock %}
 
         {% block 'subscription-toggle' %}{% endblock %}
+
+        <div class="product-form product-form--responsive">
+          <button
+            type="button"
+            class="product-form__submit btn-primary"
+            data-primary-atc
+            data-cart-trigger
+          >
+            {{ 'products.add_to_cart' | t }}
+          </button>
+        </div>
       </div>
 
       <div class="transparency-zone">

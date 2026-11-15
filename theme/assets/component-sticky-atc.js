@@ -68,6 +68,75 @@ class StickyAddToCart extends HTMLElement {
 
   setupIntersectionObserver() {
     this.classList.add('sticky-atc--visible');
+    if (this._desktopCleanup) {
+      this._desktopCleanup();
+      this._desktopCleanup = null;
+    }
+
+    const desktopMedia = window.matchMedia('(min-width: 768px)');
+    const primaryTarget =
+      document.querySelector('.purchase-decision-zone [data-primary-atc]') ||
+      document.querySelector('.purchase-decision-zone');
+
+    let observer = null;
+
+    const disconnectObserver = () => {
+      if (observer) {
+        observer.disconnect();
+        observer = null;
+      }
+    };
+
+    const syncDesktopVisibility = () => {
+      if (!this.isConnected) {
+        this._desktopCleanup?.();
+        return;
+      }
+      disconnectObserver();
+
+      if (!desktopMedia.matches || !primaryTarget) {
+        this.classList.remove('sticky-atc--hidden-desktop');
+        return;
+      }
+
+      if ('IntersectionObserver' in window) {
+        this.classList.add('sticky-atc--hidden-desktop');
+        observer = new IntersectionObserver(
+          (entries) => {
+            if (!this.isConnected) {
+              this._desktopCleanup?.();
+              return;
+            }
+            const entry = entries[0];
+            if (!entry) return;
+            const passedPrimaryCta = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+            this.classList.toggle('sticky-atc--hidden-desktop', !passedPrimaryCta);
+          },
+          { threshold: 0.05 }
+        );
+        observer.observe(primaryTarget);
+      } else {
+        this.classList.remove('sticky-atc--hidden-desktop');
+      }
+    };
+
+    const onMediaChange = () => syncDesktopVisibility();
+    if (typeof desktopMedia.addEventListener === 'function') {
+      desktopMedia.addEventListener('change', onMediaChange);
+    } else if (typeof desktopMedia.addListener === 'function') {
+      desktopMedia.addListener(onMediaChange);
+    }
+
+    this._desktopCleanup = () => {
+      disconnectObserver();
+      if (typeof desktopMedia.removeEventListener === 'function') {
+        desktopMedia.removeEventListener('change', onMediaChange);
+      } else if (typeof desktopMedia.removeListener === 'function') {
+        desktopMedia.removeListener(onMediaChange);
+      }
+    };
+
+    syncDesktopVisibility();
   }
 
   onVariantChange(event) {

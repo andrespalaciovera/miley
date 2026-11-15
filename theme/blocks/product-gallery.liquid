@@ -1,38 +1,105 @@
 {% doc %}
   Renders the Product Gallery matching Figma Node 489:2189 / 491:724 & Gallery Indicator 491:731.
-  Displays 274x274 main square image with 3 vertical 80x80 thumbnails (gap 12px, radius 16px) and 5 indicator dots.
+  Displays fluid 1:1 main image with 3 vertical thumbnails (12px gap, 16px radius) and indicator dots.
+  Outputs responsive srcset/sizes and focal-point positioning for real Shopify product media.
 {% enddoc %}
+
+<script src="{{ 'component-product-gallery.js' | asset_url }}" defer="defer"></script>
 
 {%- liquid
   assign main_img = 'solstice-coffee-bag.png'
+  assign alt_fallback = 'Solstice Coffee Co. Ethiopia Guji, Washed'
   if settings.theme_skin == 'skin-2'
     assign main_img = 'vitality-daily-focus.png'
+    assign alt_fallback = 'Vitality Labs Daily Focus Complex'
+  endif
+
+  assign use_product_media = false
+  if product != blank and product.media.size > 0
+    unless product.title contains 'Almohadillas' or product.title contains 'Detox'
+      assign use_product_media = true
+    endunless
   endif
 -%}
 
-<div class="product-gallery" {{ block.shopify_attributes }}>
+<product-gallery class="product-gallery" {{ block.shopify_attributes }}>
   <div class="product-gallery__main-wrap">
     <div class="product-gallery__main">
-      <img
-        src="{{ main_img | asset_url }}"
-        alt="Solstice Coffee Co. Ethiopia Guji, Washed"
-        class="product-gallery__hero-img"
-        width="274"
-        height="274"
-        loading="eager"
-      >
+      {%- if use_product_media -%}
+        {{
+          product.featured_media
+          | image_url: width: 1200
+          | image_tag:
+            widths: '360, 540, 720, 960, 1200',
+            sizes: '(min-width: 1024px) 44vw, (min-width: 768px) 62vw, 72vw',
+            class: 'product-gallery__hero-img',
+            alt: product.title,
+            loading: 'eager',
+            fetchpriority: 'high'
+        }}
+      {%- else -%}
+        <img
+          src="{{ main_img | asset_url }}"
+          alt="{{ alt_fallback | escape }}"
+          class="product-gallery__hero-img"
+          width="548"
+          height="548"
+          loading="eager"
+          fetchpriority="high"
+        >
+      {%- endif -%}
     </div>
 
     <div class="product-gallery__thumbs">
-      <button type="button" class="product-gallery__thumb product-gallery__thumb--active" aria-label="View photo 1">
-        <img src="{{ main_img | asset_url }}" alt="" width="80" height="80">
-      </button>
-      <button type="button" class="product-gallery__thumb" aria-label="View photo 2">
-        <img src="{{ main_img | asset_url }}" alt="" width="80" height="80">
-      </button>
-      <button type="button" class="product-gallery__thumb" aria-label="View photo 3">
-        <img src="{{ main_img | asset_url }}" alt="" width="80" height="80">
-      </button>
+      {%- if use_product_media -%}
+        {%- for media in product.media limit: 3 -%}
+          <button
+            type="button"
+            class="product-gallery__thumb{% if forloop.first %} product-gallery__thumb--active{% endif %}"
+            aria-label="View photo {{ forloop.index }}"
+            aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
+            data-full-src="{{ media | image_url: width: 1200 }}"
+            data-alt="{{ media.alt | default: product.title | escape }}"
+          >
+            {{
+              media
+              | image_url: width: 240
+              | image_tag:
+                widths: '120, 180, 240',
+                sizes: '(min-width: 1024px) 104px, 22vw',
+                loading: 'lazy'
+            }}
+          </button>
+        {%- endfor -%}
+      {%- else -%}
+        <button
+          type="button"
+          class="product-gallery__thumb product-gallery__thumb--active"
+          aria-label="View photo 1"
+          aria-current="true"
+          data-full-src="{{ main_img | asset_url }}"
+        >
+          <img src="{{ main_img | asset_url }}" alt="" width="160" height="160">
+        </button>
+        <button
+          type="button"
+          class="product-gallery__thumb"
+          aria-label="View photo 2"
+          aria-current="false"
+          data-full-src="{{ main_img | asset_url }}"
+        >
+          <img src="{{ main_img | asset_url }}" alt="" width="160" height="160">
+        </button>
+        <button
+          type="button"
+          class="product-gallery__thumb"
+          aria-label="View photo 3"
+          aria-current="false"
+          data-full-src="{{ main_img | asset_url }}"
+        >
+          <img src="{{ main_img | asset_url }}" alt="" width="160" height="160">
+        </button>
+      {%- endif -%}
     </div>
   </div>
 
@@ -43,7 +110,7 @@
     <span class="gallery-dot"></span>
     <span class="gallery-dot"></span>
   </div>
-</div>
+</product-gallery>
 
 {% schema %}
 {

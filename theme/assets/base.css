@@ -1753,3 +1753,337 @@ footer .footer__payment {
 .template-gift-card main img {
   display: unset;
 }
+
+/* ==========================================================================
+   Responsive PDP, Accessibility & Breakpoint System
+   - Preserves 390px Figma fidelity while supporting 320px+, 200% zoom,
+     Tablet (>= 768px) and Desktop 2-column PDP (>= 1024px)
+   ========================================================================== */
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+  outline: var(--stroke-emphasis) solid var(--border-selected);
+  outline-offset: var(--stroke-emphasis);
+}
+
+.header {
+  max-width: 480px;
+}
+
+.pdp-page-frame,
+.product-layout {
+  max-width: 480px;
+  overflow-x: clip;
+}
+
+.product-visual-column,
+.product-details-column,
+.pdp-social-proof {
+  min-width: 0;
+}
+
+.product-gallery__main-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(56px, 21.8%, 104px);
+  gap: var(--space-md);
+  align-items: start;
+  width: 100%;
+}
+
+.product-gallery__main {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  min-width: 0;
+}
+
+.product-gallery__main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.product-gallery__thumbs {
+  width: 100%;
+  min-width: 0;
+}
+
+.product-gallery__thumb {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  display: block;
+}
+
+.product-gallery__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.complementary-card {
+  height: auto;
+  min-height: 285px;
+  border: none;
+}
+
+.complementary-card__media {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 162 / 161;
+}
+
+.complementary-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.complementary-card__info {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.complementary-card__atc {
+  margin-top: auto;
+  min-height: 40px;
+}
+
+.testimonial-card {
+  width: min(310px, 86vw);
+  height: auto;
+}
+
+.influencer-section {
+  height: auto;
+  min-height: 436px;
+}
+
+.influencer-icon-btn--mute {
+  left: auto;
+  right: var(--space-sm);
+  top: var(--space-xl);
+}
+
+.influencer-icon-btn--pause {
+  left: auto;
+  right: var(--space-sm);
+  top: calc(var(--space-xl) + 25px);
+}
+
+.reviews-layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.reviews-sidebar,
+.reviews-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  min-width: 0;
+}
+
+.reviews-write-btn {
+  max-width: 100%;
+}
+
+footer {
+  width: 100%;
+  max-width: 480px;
+  margin-inline: auto;
+  padding-inline: var(--space-lg);
+  padding-bottom: 156px;
+}
+
+@media (max-width: 767px) {
+  .product-form--responsive {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+}
+
+@media (max-width: 359px) {
+  .header {
+    padding-inline: var(--space-md);
+  }
+
+  .pdp-page-frame,
+  .product-layout {
+    padding-inline: var(--space-md);
+  }
+
+  footer {
+    padding-inline: var(--space-md);
+  }
+
+  .review-filter-chip {
+    white-space: normal;
+  }
+}
+
+@media (min-width: 768px) {
+  .header {
+    max-width: 720px;
+    padding-inline: var(--space-2xl);
+  }
+
+  .pdp-page-frame,
+  .product-layout {
+    max-width: 720px;
+    padding: 0 var(--space-2xl) 128px;
+  }
+
+  footer {
+    max-width: 720px;
+    padding-inline: var(--space-2xl);
+    padding-bottom: 128px;
+  }
+
+  .product-form--responsive {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+  }
+
+  .product-form__submit.btn-primary {
+    width: 100%;
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-primary);
+    color: var(--text-on-primary);
+    font-family: var(--font-body);
+    font-size: var(--body-size, 14px);
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    box-shadow: var(--shadow-subtle);
+    transition: opacity 0.15s ease;
+  }
+
+  .product-form__submit.btn-primary:hover {
+    opacity: 0.92;
+  }
+
+  .product-form__dynamic-checkout {
+    width: 100%;
+  }
+
+  .product-form__dynamic-checkout .shopify-payment-button__button {
+    min-height: 44px;
+    border-radius: var(--radius-sm);
+  }
+
+  .complementary-cards-scroll {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-lg);
+    overflow-x: visible;
+  }
+
+  .complementary-card {
+    width: 100%;
+    min-height: 0;
+  }
+
+  .complementary-card__media {
+    aspect-ratio: 1 / 1;
+  }
+
+  .testimonials-carousel {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-lg);
+    overflow-x: visible;
+  }
+
+  .testimonial-card {
+    width: 100%;
+    flex-shrink: initial;
+  }
+
+  .influencer-section {
+    padding: var(--space-2xl);
+    border-radius: var(--radius-md);
+    min-height: auto;
+  }
+
+  .influencer-header {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .influencer-video-track {
+    justify-content: center;
+    gap: var(--space-xl);
+    overflow-x: visible;
+  }
+}
+
+@media (min-width: 1024px) {
+  .header {
+    max-width: var(--page-width, 1200px);
+  }
+
+  .pdp-page-frame,
+  .product-layout {
+    max-width: var(--page-width, 1200px);
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: var(--space-2xl) clamp(24px, 3vw, 48px);
+    align-items: start;
+  }
+
+  .product-visual-column {
+    position: sticky;
+    top: var(--space-2xl);
+    align-self: start;
+  }
+
+  .pdp-social-proof {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+    margin-top: var(--space-lg);
+  }
+
+  .reviews-layout {
+    display: grid;
+    grid-template-columns: minmax(280px, 340px) minmax(0, 1fr);
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+
+  .reviews-sidebar {
+    position: sticky;
+    top: var(--space-2xl);
+  }
+
+  footer {
+    max-width: var(--page-width, 1200px);
+  }
+}

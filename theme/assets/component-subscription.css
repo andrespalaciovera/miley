@@ -136,3 +136,27 @@ subscription-toggle {
   flex-shrink: 0;
   color: var(--text-primary, #151c25);
 }
+
+/* Responsive Subscription Controls Safety (320px+ & 200% zoom) */
+.subscription-tab,
+.frequency-tile {
+  min-width: 0;
+}
+
+@media (max-width: 359px) {
+  .subscription-frequency__grid {
+    gap: var(--space-xs);
+  }
+
+  .subscription-tab,
+  .frequency-tile {
+    padding-inline: var(--space-xs);
+  }
+
+  .subscription-tab,
+  .frequency-tile__prefix,
+  .frequency-tile__value {
+    white-space: normal;
+    text-align: center;
+  }
+}

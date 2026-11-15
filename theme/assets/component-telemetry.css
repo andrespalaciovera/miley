@@ -228,3 +228,46 @@
   letter-spacing: -0.5px;
   white-space: nowrap;
 }
+
+/* Responsive Telemetry & Gauges */
+@media (max-width: 359px) {
+  .origin-facts-panel__header {
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  .origin-facts-panel__map {
+    width: clamp(84px, 32vw, 114px);
+    height: auto;
+    aspect-ratio: 114 / 118;
+  }
+
+  .brewing-guide-table {
+    gap: var(--space-sm);
+  }
+
+  .brewing-metric-val,
+  .brewing-metric-label {
+    white-space: normal;
+    text-align: center;
+  }
+}
+
+@media (min-width: 640px) {
+  .product-profile-gauges {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-md);
+    overflow-x: visible;
+  }
+
+  .gauge-metric {
+    width: auto;
+    min-width: 0;
+  }
+
+  .gauge-metric__label {
+    white-space: normal;
+    text-align: center;
+  }
+}
