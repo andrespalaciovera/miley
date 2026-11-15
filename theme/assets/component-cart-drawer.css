@@ -105,17 +105,48 @@ cart-drawer.is-open .cart-drawer__panel {
   position: relative;
   width: 100%;
   height: 8px;
-  background-color: var(--surface-track);
-  border-radius: var(--radius-full);
-  margin: var(--space-md) 0 var(--space-xs);
+  background-color: var(--surface-track, #e8e0d8);
+  border-radius: 999px;
+  margin: 18px 0 8px;
 }
 
 .cart-gamification__bar {
   height: 100%;
-  background-color: var(--color-secondary);
-  border-radius: var(--radius-full);
+  background-color: var(--color-secondary, #a18263);
+  border-radius: 999px;
   width: 0%;
   transition: width 0.4s ease-out;
+}
+
+.cart-gamification__runner {
+  position: absolute;
+  top: -15px;
+  left: 52%;
+  width: 23px;
+  height: 23px;
+  transform: rotate(-15.8deg);
+  pointer-events: none;
+}
+
+.cart-gamification__flag {
+  position: absolute;
+  top: -5px;
+  left: 71%;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+}
+
+.cart-gamification__end-dot {
+  position: absolute;
+  top: -2px;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--color-tertiary, #344435);
+  border: 2px solid #ffffff;
+  box-sizing: border-box;
 }
 
 [data-skin="skin-2"] .cart-gamification__bar {
@@ -125,20 +156,28 @@ cart-drawer.is-open .cart-drawer__panel {
 .cart-gamification__milestones {
   display: flex;
   justify-content: space-between;
-  margin-top: var(--space-xs);
+  margin-top: 8px;
 }
 
 .milestone-badge {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-xxs);
-  padding: var(--space-xxs) var(--space-xs);
-  background-color: var(--bg-main);
-  border-radius: var(--radius-xs);
-  font-family: var(--font-label);
-  font-size: var(--label-size);
-  color: var(--text-muted);
-  border: var(--stroke-hairline) solid var(--border-default);
+  gap: 4px;
+  padding: 2px 6px;
+  background-color: var(--surface-subtle, #f6ebe0);
+  border-radius: 4px;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 12px;
+  color: var(--text-primary, #151c25);
+  letter-spacing: -0.5px;
+}
+
+.milestone-badge__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--color-tertiary, #344435);
+  display: inline-block;
 }
 
 .milestone-badge--achieved {
@@ -222,14 +261,24 @@ cart-drawer.is-open .cart-drawer__panel {
   color: var(--text-muted);
 }
 
+.cart-item__badges {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
 .cart-item__plan-badge {
   display: inline-flex;
-  padding: var(--space-xxs) var(--space-xs);
-  background-color: var(--color-secondary);
-  color: var(--text-on-secondary);
-  border-radius: var(--radius-full);
-  font-family: var(--font-label);
-  font-size: var(--label-size);
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background-color: var(--color-secondary, #a18263);
+  color: var(--text-on-secondary, #151c25);
+  border-radius: 999px;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 12px;
+  line-height: 16px;
   width: fit-content;
 }
 

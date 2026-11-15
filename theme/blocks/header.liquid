@@ -1,30 +1,20 @@
 {% doc %}
-  Renders the storefront header matching Figma PDP & Storefront header (Node 489:2200).
-  Adapts dynamically to the active skin persona ('Solstice Coffee Co.' vs 'Vitality Labs').
+  Renders the storefront header matching Figma PDP Header (Node 489:2200 / 491:715).
+  Displays the 44x44 back button on the left and the 44x44 shopping bag trigger on the right.
 {% enddoc %}
 
 <header class="header" {{ block.shopify_attributes }}>
-  <div class="header__left">
+  <div class="header__bar">
     <a href="{{ routes.root_url }}" class="header__back-btn" aria-label="Go back">
       <img src="{{ 'icon-back-arrow.svg' | asset_url }}" alt="" width="16" height="16" aria-hidden="true">
     </a>
-  </div>
 
-  <div class="header__brand">
-    <a href="{{ routes.root_url }}" class="header__brand-link">
-      {%- if settings.theme_skin == 'skin-2' -%}
-        Vitality Labs
-      {%- else -%}
-        Solstice Coffee Co.
-      {%- endif -%}
-    </a>
-  </div>
-
-  <div class="header__icons">
-    <button type="button" class="header__cart-btn" data-cart-trigger aria-label="{{ 'cart.title' | t }}">
-      <img src="{{ 'icon-cart-bag.svg' | asset_url }}" alt="" width="22" height="24" aria-hidden="true">
-      <sup data-cart-count class="header__cart-count" {% if cart.item_count == 0 %}style="display: none;"{% endif %}>{{ cart.item_count }}</sup>
-    </button>
+    <div class="header__icons">
+      <button type="button" class="header__cart-btn" data-cart-trigger aria-label="{{ 'cart.title' | t }}">
+        <img src="{{ 'icon-cart-bag.svg' | asset_url }}" alt="" width="22" height="24" aria-hidden="true">
+        <sup data-cart-count class="header__cart-count" {% if cart.item_count == 0 %}style="display: none;"{% endif %}>{{ cart.item_count }}</sup>
+      </button>
+    </div>
   </div>
 </header>
 

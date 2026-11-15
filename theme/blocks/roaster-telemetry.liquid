@@ -1,6 +1,6 @@
 {% doc %}
-  Renders the Product Profile & Sensory Telemetry block.
-  Skin 1: 4 circular segmented gauges (Roast level, Acidity, Body, Sweetness).
+  Renders the Product Profile & Sensory Telemetry block matching Figma Node 491:760 & 481:1810.
+  Skin 1: 4 circular segmented gauges (Roast, Acidity, Body, Sweetness).
   Skin 2: Functional benefit pills ('Supports Focus', 'No Jitters', 'Non-Habit Forming', 'Clean Energy').
 {% enddoc %}
 
@@ -18,35 +18,24 @@
     </div>
   </div>
 {%- else -%}
-  {%- liquid
-    assign roast = product.metafields.custom.roast_level.value | default: 3
-    assign acidity = 4
-    assign body = 3
-    assign sweetness = 4
-
-    assign roast_label = 'products.telemetry.roast_level' | t
-    assign acidity_label = 'products.telemetry.acidity' | t
-    assign body_label = 'products.telemetry.body' | t
-  -%}
-
   <div class="product-profile-gauges" {{ block.shopify_attributes }}>
     <div class="gauge-metric">
-      {% render 'gauge-svg', level: roast, label: roast_label %}
-      <span class="gauge-metric__label">{{ roast_label }}</span>
+      {% render 'gauge-svg', level: 3 %}
+      <span class="gauge-metric__label">Roast</span>
     </div>
 
     <div class="gauge-metric">
-      {% render 'gauge-svg', level: acidity, label: acidity_label %}
-      <span class="gauge-metric__label">{{ acidity_label }}</span>
+      {% render 'gauge-svg', level: 4 %}
+      <span class="gauge-metric__label">Acidity</span>
     </div>
 
     <div class="gauge-metric">
-      {% render 'gauge-svg', level: body, label: body_label %}
-      <span class="gauge-metric__label">{{ body_label }}</span>
+      {% render 'gauge-svg', level: 3 %}
+      <span class="gauge-metric__label">Body</span>
     </div>
 
     <div class="gauge-metric">
-      {% render 'gauge-svg', level: sweetness, label: 'Sweetness' %}
+      {% render 'gauge-svg', level: 4 %}
       <span class="gauge-metric__label">Sweetness</span>
     </div>
   </div>

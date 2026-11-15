@@ -1,6 +1,5 @@
 {% doc %}
-  Renders the Full Reviews Section matching Figma Node 491:1191.
-  Displays Score Breakdown, Photo/Video gallery strip, Filter Chips, and Customer Review Cards.
+  Renders the Full Reviews Section matching Figma Nodes 491:1191, 484:2018, 491:1264, 491:1302, 489:2159, & 491:1394.
 {% enddoc %}
 
 <div class="reviews-section" {{ block.shopify_attributes }}>
@@ -9,117 +8,220 @@
     <p class="reviews-subtitle">Real reviews from customers who’ve tried it.</p>
   </div>
 
-  <div class="reviews-summary-card">
-    <div class="reviews-summary-left">
-      <span class="reviews-big-score">4.8</span>
-      <div class="reviews-summary-stars" aria-label="4.8 out of 5 stars">
-        <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="16" height="15">
-        <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="16" height="15">
-        <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="16" height="15">
-        <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="16" height="15">
-        <img src="{{ 'icon-star-half.svg' | asset_url }}" alt="" width="16" height="15">
+  <div class="reviews-rating-summary-wrap">
+    <div class="reviews-summary-card">
+      <div class="reviews-verified-badge-row">
+        <span class="reviews-verified-badge">
+          <img src="{{ 'icon-reload.svg' | asset_url }}" alt="" width="16" height="16" aria-hidden="true">
+          <span>Verified Reviews</span>
+        </span>
       </div>
-      <span class="reviews-total-count">Based on 128 reviews</span>
+
+      <div class="reviews-score-row">
+        <span class="reviews-big-score">4.8</span>
+        <div class="reviews-score-meta">
+          <div class="reviews-summary-stars" aria-label="4.8 out of 5 stars">
+            <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="15" height="14">
+            <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="15" height="14">
+            <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="15" height="14">
+            <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="15" height="14">
+            <img src="{{ 'icon-star-half.svg' | asset_url }}" alt="" width="15" height="14">
+          </div>
+          <span class="reviews-total-count">Based on 128 reviews</span>
+        </div>
+      </div>
+
+      <div class="reviews-bars">
+        <div class="review-bar-row">
+          <span class="review-bar-label">5 ★</span>
+          <div class="review-bar-track"><div class="review-bar-fill" style="width: 82%;"></div></div>
+          <span class="review-bar-pct">82%</span>
+        </div>
+        <div class="review-bar-row">
+          <span class="review-bar-label">4 ★</span>
+          <div class="review-bar-track"><div class="review-bar-fill" style="width: 12%;"></div></div>
+          <span class="review-bar-pct">12%</span>
+        </div>
+        <div class="review-bar-row">
+          <span class="review-bar-label">3 ★</span>
+          <div class="review-bar-track"><div class="review-bar-fill" style="width: 4%;"></div></div>
+          <span class="review-bar-pct">4%</span>
+        </div>
+        <div class="review-bar-row">
+          <span class="review-bar-label">2 ★</span>
+          <div class="review-bar-track"><div class="review-bar-fill" style="width: 1%;"></div></div>
+          <span class="review-bar-pct">1%</span>
+        </div>
+        <div class="review-bar-row">
+          <span class="review-bar-label">1 ★</span>
+          <div class="review-bar-track"><div class="review-bar-fill" style="width: 1%;"></div></div>
+          <span class="review-bar-pct">1%</span>
+        </div>
+      </div>
     </div>
 
-    <div class="reviews-bars">
-      <div class="review-bar-row">
-        <span class="review-bar-label">5★</span>
-        <div class="review-bar-track"><div class="review-bar-fill" style="width: 86%;"></div></div>
-        <span class="review-bar-count">110</span>
-      </div>
-      <div class="review-bar-row">
-        <span class="review-bar-label">4★</span>
-        <div class="review-bar-track"><div class="review-bar-fill" style="width: 11%;"></div></div>
-        <span class="review-bar-count">14</span>
-      </div>
-      <div class="review-bar-row">
-        <span class="review-bar-label">3★</span>
-        <div class="review-bar-track"><div class="review-bar-fill" style="width: 3%;"></div></div>
-        <span class="review-bar-count">4</span>
-      </div>
-      <div class="review-bar-row">
-        <span class="review-bar-label">2★</span>
-        <div class="review-bar-track"><div class="review-bar-fill" style="width: 0%;"></div></div>
-        <span class="review-bar-count">0</span>
-      </div>
-      <div class="review-bar-row">
-        <span class="review-bar-label">1★</span>
-        <div class="review-bar-track"><div class="review-bar-fill" style="width: 0%;"></div></div>
-        <span class="review-bar-count">0</span>
-      </div>
-    </div>
-
-    <div class="reviews-cta-wrap">
-      <button type="button" class="btn-secondary reviews-write-btn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <path d="M12 20h9"></path>
-          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-        </svg>
-        Write a review
-      </button>
-    </div>
+    <button type="button" class="reviews-write-btn">
+      <img src="{{ 'icon-write-review.svg' | asset_url }}" alt="" width="16" height="17" aria-hidden="true">
+      <span>Write a review</span>
+    </button>
   </div>
 
   <div class="reviews-media-strip">
     <div class="reviews-media-header">
-      <span class="reviews-media-title">Customer Photos & Videos (18)</span>
-      <button type="button" class="reviews-media-all-btn">View all</button>
+      <div class="reviews-media-title-group">
+        <span class="reviews-media-title">Customer Photos &amp; Videos</span>
+        <span class="reviews-media-count">18</span>
+      </div>
+      <button type="button" class="reviews-media-all-btn">
+        <span>View all</span>
+        <svg width="5" height="8" viewBox="0 0 5 8" fill="none" aria-hidden="true">
+          <path d="M1 1L4 4L1 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
     </div>
+
     <div class="reviews-media-thumbnails">
-      <div class="review-thumb"><img src="{{ 'solstice-coffee-bag.png' | asset_url }}" alt="Customer photo 1" width="84" height="84"></div>
-      <div class="review-thumb"><img src="{{ 'pour-over-dripper.png' | asset_url }}" alt="Customer photo 2" width="84" height="84"></div>
-      <div class="review-thumb"><img src="{{ 'influencer-1.png' | asset_url }}" alt="Customer photo 3" width="84" height="84"></div>
-      <div class="review-thumb review-thumb--more"><span>+15 More</span></div>
+      <div class="review-thumb review-thumb--gradient">
+        <img src="{{ 'ugc-thumb-1.png' | asset_url }}" alt="Customer photo 1" width="84" height="84" loading="lazy">
+        <div class="review-thumb__scrim"></div>
+      </div>
+
+      <div class="review-thumb review-thumb--video">
+        <img src="{{ 'ugc-thumb-2.png' | asset_url }}" alt="Customer video 2" width="84" height="84" loading="lazy">
+        <div class="review-thumb__play-pill">
+          <svg width="8" height="10" viewBox="0 0 8 10" fill="none" aria-hidden="true">
+            <path d="M1 1L7 5L1 9V1Z" fill="#151C25"/>
+          </svg>
+        </div>
+        <span class="review-thumb__duration">0:14</span>
+      </div>
+
+      <div class="review-thumb">
+        <img src="{{ 'ugc-thumb-3.png' | asset_url }}" alt="Customer photo 3" width="84" height="84" loading="lazy">
+      </div>
+
+      <div class="review-thumb review-thumb--more">
+        <span>+15</span>
+        <span>More</span>
+      </div>
     </div>
   </div>
 
-  <div class="reviews-filter-chips">
-    <button type="button" class="filter-chip filter-chip--active">All (128)</button>
-    <button type="button" class="filter-chip">With photos (18)</button>
-    <button type="button" class="filter-chip">Verified (112)</button>
-    <button type="button" class="filter-chip">Taste (45)</button>
+  <div class="reviews-controls-block">
+    <div class="reviews-search-input-wrap">
+      <img src="{{ 'icon-search.svg' | asset_url }}" alt="" width="14" height="14" class="reviews-search-icon" aria-hidden="true">
+      <input
+        type="search"
+        class="reviews-search-input"
+        placeholder="Search reviews, words, topics..."
+        aria-label="Search reviews, words, topics"
+      >
+    </div>
+
+    <div class="reviews-filter-chips">
+      <button type="button" class="filter-chip filter-chip--active">
+        <span>All</span>
+        <span>(128)</span>
+      </button>
+      <button type="button" class="filter-chip">
+        <img src="{{ 'icon-camera.svg' | asset_url }}" alt="" width="12" height="12" aria-hidden="true">
+        <span>With photos</span>
+        <span>(18)</span>
+      </button>
+      <button type="button" class="filter-chip">
+        <span>Verified</span>
+        <span>(114)</span>
+      </button>
+      <button type="button" class="filter-chip">
+        <span>5 Stars</span>
+        <span>(105)</span>
+      </button>
+    </div>
+
+    <div class="reviews-matching-row">
+      <span class="reviews-matching-text">128 reviews matching</span>
+    </div>
   </div>
 
   <div class="reviews-cards-list">
     <article class="review-card">
       <div class="review-card__header">
-        <div class="review-card__stars" aria-label="5 stars">
-          <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="14" height="13">
-          <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="14" height="13">
-          <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="14" height="13">
-          <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="14" height="13">
-          <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="14" height="13">
+        <div class="review-card__user">
+          <div class="review-card__avatar">
+            <span>SM</span>
+          </div>
+          <div class="review-card__user-info">
+            <div class="review-card__name-row">
+              <span class="review-card__name">Sarah M.</span>
+              <img src="{{ 'icon-verified-badge.svg' | asset_url }}" alt="" width="14" height="13" aria-hidden="true">
+            </div>
+            <span class="review-card__verified-label">Verified purchase</span>
+          </div>
         </div>
-        <span class="review-card__badge">Verified Buyer</span>
+        <span class="review-card__date">Aug 18, 2026</span>
       </div>
 
-      <h4 class="review-card__title">
-        {%- if settings.theme_skin == 'skin-2' -%}
-          Zero brain fog by 10 AM, completely changed my workday
-        {%- else -%}
-          Clean, sweet, and floral — the best home pour-over beans
-        {%- endif -%}
-      </h4>
+      <div class="review-card__rating-variant">
+        <div class="review-card__stars" aria-label="5 stars">
+          <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="13" height="13">
+          <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="13" height="13">
+          <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="13" height="13">
+          <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="13" height="13">
+          <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="13" height="13">
+        </div>
+        <div class="review-card__purchased-row">
+          <img src="{{ 'icon-check-small.svg' | asset_url }}" alt="" width="10" height="10" aria-hidden="true">
+          <span>
+            {%- if settings.theme_skin == 'skin-2' -%}
+              Purchased: 2-Pack / 60 Capsules
+            {%- else -%}
+              Purchased: 2-Pack / Matte Charcoal
+            {%- endif -%}
+          </span>
+        </div>
+      </div>
 
-      <p class="review-card__body">
-        {%- if settings.theme_skin == 'skin-2' -%}
-          I was skeptical about nootropics, but Daily Focus Complex gives me a steady 6 hours of high cognitive focus without feeling wired. Clean ingredients and no upset stomach.
-        {%- else -%}
-          I’ve been ordering specialty coffee for over 5 years and this Guji washed lot is stellar. The jasmine florals come through clearly, with sweet blueberry in the cooling cup. Shipped within 24 hours of roasting!
-        {%- endif -%}
-      </p>
+      <div class="review-card__content">
+        <h4 class="review-card__title">
+          {%- if settings.theme_skin == 'skin-2' -%}
+            Zero brain fog by 10 AM, completely changed my workday
+          {%- else -%}
+            One of the best coffees I've tried
+          {%- endif -%}
+        </h4>
+
+        <p class="review-card__body">
+          {%- if settings.theme_skin == 'skin-2' -%}
+            I was skeptical about nootropics, but Daily Focus Complex gives me a steady 6 hours of high cognitive focus without feeling wired. Clean ingredients and no upset stomach.
+          {%- else -%}
+            Really clean and bright without being too acidic. I’ve already ordered another bag. The aroma filling the kitchen every morning is worth it alone.
+          {%- endif -%}
+        </p>
+      </div>
+
+      <div class="review-card__media">
+        <img src="{{ 'review-media-1.png' | asset_url }}" alt="Customer review attachment" width="60" height="60" class="review-card__media-img" loading="lazy">
+      </div>
 
       <div class="review-card__footer">
-        <span class="review-card__author">Sarah M. • 3 days ago</span>
-        <button type="button" class="review-card__helpful">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
-          </svg>
-          Helpful (14)
+        <button type="button" class="review-card__helpful-btn">
+          <img src="{{ 'icon-helpful.svg' | asset_url }}" alt="" width="14" height="13" aria-hidden="true">
+          <span>Helpful (14)</span>
+        </button>
+
+        <button type="button" class="review-card__report-btn">
+          <img src="{{ 'icon-report.svg' | asset_url }}" alt="" width="9" height="10" aria-hidden="true">
+          <span>Report</span>
         </button>
       </div>
     </article>
+  </div>
+
+  <div class="reviews-view-more-wrap">
+    <button type="button" class="reviews-view-more-btn">
+      <span>View More</span>
+      <img src="{{ 'icon-chevron.svg' | asset_url }}" alt="" width="12" height="12" aria-hidden="true">
+    </button>
   </div>
 </div>
 

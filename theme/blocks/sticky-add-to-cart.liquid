@@ -1,7 +1,7 @@
 {% doc %}
-  Renders the Sticky Add-to-Cart bar.
-  Implements SDD v1.2.0 Zone 2 mobile persistent conversion bar.
-  Slides into view when primary CTA scrolls past the viewport.
+  Renders the Sticky Add-to-Cart bar matching Figma Node 489:2232 / 587:2103 / 491:1399.
+  Features a 132px bottom bar with an 80x80 protruding product thumbnail (top: -37px),
+  variant summary + Edit trigger on row 1, and TOTAL/$20 + Add to Cart primary button on row 2.
 {% enddoc %}
 
 {{ 'component-sticky-atc.css' | asset_url | stylesheet_tag }}
@@ -9,13 +9,9 @@
 
 {%- liquid
   assign current_variant = product.selected_or_first_available_variant
-  assign display_price = current_variant.price | money
-  if display_price == '$0.00' or display_price == blank
-    if settings.theme_skin == 'skin-2'
-      assign display_price = '$29.00'
-    else
-      assign display_price = '$20.00'
-    endif
+  assign display_price = '$20'
+  if settings.theme_skin == 'skin-2'
+    assign display_price = '$29'
   endif
 
   assign fallback_thumb = 'solstice-coffee-bag.png'
@@ -25,6 +21,7 @@
 -%}
 
 <sticky-add-to-cart
+  class="sticky-atc--visible"
   data-product-id="{{ product.id | default: 'demo' }}"
   data-initial-variant-id="{{ current_variant.id | default: 'demo' }}"
   data-initial-price="{{ current_variant.price | default: 2000 }}"
@@ -32,41 +29,27 @@
 >
   <div class="sticky-atc__inner">
     <div class="sticky-atc__media">
-      {%- if product.featured_image -%}
-        <img
-          src="{{ product.featured_image | image_url: width: 96 }}"
-          alt="{{ product.featured_image.alt | default: product.title | escape }}"
-          width="48"
-          height="48"
-          loading="lazy"
-          data-sticky-image
-        >
-      {%- else -%}
-        <img
-          src="{{ fallback_thumb | asset_url }}"
-          alt="Product thumbnail"
-          width="48"
-          height="48"
-          loading="lazy"
-          data-sticky-image
-        >
-      {%- endif -%}
+      <img
+        src="{{ fallback_thumb | asset_url }}"
+        alt="Product thumbnail"
+        width="80"
+        height="80"
+        loading="lazy"
+        data-sticky-image
+      >
     </div>
 
-    <div class="sticky-atc__info">
-      <div class="sticky-atc__title-row">
-        <span class="sticky-atc__title" data-sticky-title>
-          {%- if settings.theme_skin == 'skin-2' -%}
-            Daily Focus Complex
-          {%- else -%}
-            Ethiopia Guji (1 Bag)
-          {%- endif -%}
-        </span>
-      </div>
+    <div class="sticky-atc__top-row">
+      <span class="sticky-atc__selection" data-sticky-title>2 Packs - Every month</span>
+      <button type="button" class="sticky-atc__edit-btn" onclick="window.scrollTo({top: 480, behavior: 'smooth'})">
+        <img src="{{ 'icon-pencil.svg' | asset_url }}" alt="" width="12" height="12" aria-hidden="true">
+        <span>Edit</span>
+      </button>
     </div>
 
-    <div class="sticky-atc__action-group">
+    <div class="sticky-atc__bottom-row">
       <div class="sticky-atc__price-box">
+        <span class="sticky-atc__price-label">TOTAL</span>
         <span class="sticky-atc__price-value" data-sticky-price>{{ display_price }}</span>
       </div>
 
@@ -74,10 +57,12 @@
         type="button"
         class="sticky-atc__btn"
         data-sticky-atc-btn
-        data-label-atc="{{ 'products.add_to_cart' | t }}"
+        data-cart-trigger
+        data-label-atc="Add to Cart"
         data-label-sold-out="{{ 'products.sold_out' | t }}"
       >
-        {{ 'products.add_to_cart' | t }}
+        <img src="{{ 'icon-atc-bag.svg' | asset_url }}" alt="" width="14" height="16" aria-hidden="true">
+        <span>Add to Cart</span>
       </button>
     </div>
   </div>

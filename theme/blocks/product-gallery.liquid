@@ -1,6 +1,6 @@
 {% doc %}
-  Renders the Product Gallery matching Figma Node 489:2189 / 491:724.
-  Displays main high-res image and gallery thumbnails with dot indicators.
+  Renders the Product Gallery matching Figma Node 489:2189 / 491:724 & Gallery Indicator 491:731.
+  Displays 274x274 main square image with 3 vertical 80x80 thumbnails (gap 12px, radius 16px) and 5 indicator dots.
 {% enddoc %}
 
 {%- liquid
@@ -15,10 +15,10 @@
     <div class="product-gallery__main">
       <img
         src="{{ main_img | asset_url }}"
-        alt="Product presentation"
+        alt="Solstice Coffee Co. Ethiopia Guji, Washed"
         class="product-gallery__hero-img"
-        width="358"
-        height="358"
+        width="274"
+        height="274"
         loading="eager"
       >
     </div>
@@ -28,18 +28,10 @@
         <img src="{{ main_img | asset_url }}" alt="" width="80" height="80">
       </button>
       <button type="button" class="product-gallery__thumb" aria-label="View photo 2">
-        {%- if settings.theme_skin == 'skin-2' -%}
-          <img src="{{ 'vitality-focus-citrus-yellow.png' | asset_url }}" alt="" width="80" height="80">
-        {%- else -%}
-          <img src="{{ 'pour-over-dripper.png' | asset_url }}" alt="" width="80" height="80">
-        {%- endif -%}
+        <img src="{{ main_img | asset_url }}" alt="" width="80" height="80">
       </button>
       <button type="button" class="product-gallery__thumb" aria-label="View photo 3">
-        {%- if settings.theme_skin == 'skin-2' -%}
-          <img src="{{ 'vitality-focus-citrus-blue.png' | asset_url }}" alt="" width="80" height="80">
-        {%- else -%}
-          <img src="{{ 'solstice-coffee-bag.png' | asset_url }}" alt="" width="80" height="80">
-        {%- endif -%}
+        <img src="{{ main_img | asset_url }}" alt="" width="80" height="80">
       </button>
     </div>
   </div>

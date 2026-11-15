@@ -1,5 +1,5 @@
 {% doc %}
-  Renders the Multi-Pack Economics Selector block.
+  Renders the Multi-Pack Economics Selector block matching Figma Node 477:1068 & 491:848.
   Implements SDD v1.2.0 Zone 2 and Section 9.1 CRO in-customizer benchmark advice.
   Emits 'theme:variant:change' through <pack-selector> custom element.
 {% enddoc %}
@@ -9,11 +9,18 @@
 
 {%- liquid
   assign current_variant = product.selected_or_first_available_variant
-  assign tier_2_badge = block.settings.tier_2_badge | default: 'products.pack_selector.most_popular' | t
+  assign tier_2_badge = block.settings.tier_2_badge | default: 'Popular'
   assign show_per_serving = block.settings.show_per_serving_price
+
+  assign use_custom_variants = false
+  if product.variants.size > 1 and product.title != blank
+    unless product.title contains 'Almohadillas' or product.title contains 'Detox'
+      assign use_custom_variants = true
+    endunless
+  endif
 -%}
 
-{%- if product.variants.size > 1 -%}
+{%- if use_custom_variants -%}
   <pack-selector
     class="pack-selector"
     data-product-id="{{ product.id }}"
@@ -40,16 +47,23 @@
 
         <button
           type="button"
-          class="pack-tile{% if is_selected %} pack-tile--selected{% endif %}"
+          class="pack-tile{% if is_selected %} pack-tile--selected{% endif %}{% if forloop.index == 2 %} pack-tile--popular{% endif %}"
           data-variant-id="{{ variant.id }}"
           data-price="{{ variant.price }}"
           data-compare-at-price="{{ variant.compare_at_price | default: '' }}"
           aria-pressed="{% if is_selected %}true{% else %}false{% endif %}"
         >
           {%- if forloop.index == 2 and tier_2_badge != blank -%}
-            <span class="pack-tile__floating-badge">{{ tier_2_badge }}</span>
+            <span class="pack-tile__floating-badge">
+              <img src="{{ 'icon-reload.svg' | asset_url }}" alt="" width="16" height="16" class="pack-tile__badge-icon pack-tile__badge-icon--dark" aria-hidden="true">
+              <img src="{{ 'icon-reload-white.svg' | asset_url }}" alt="" width="16" height="16" class="pack-tile__badge-icon pack-tile__badge-icon--light" aria-hidden="true">
+              <span>{{ tier_2_badge }}</span>
+            </span>
           {%- elsif variant.metafields.custom.badge != blank -%}
-            <span class="pack-tile__floating-badge">{{ variant.metafields.custom.badge.value }}</span>
+            <span class="pack-tile__floating-badge">
+              <img src="{{ 'icon-reload.svg' | asset_url }}" alt="" width="16" height="16" class="pack-tile__badge-icon pack-tile__badge-icon--dark" aria-hidden="true">
+              <span>{{ variant.metafields.custom.badge.value }}</span>
+            </span>
           {%- endif -%}
 
           <span class="pack-tile__name">{{ variant.title }}</span>
@@ -71,11 +85,17 @@
           </div>
 
           {%- if savings_pct != null and savings_pct > 0 -%}
-            <span class="pack-tile__bottom-badge">{{ 'products.pack_selector.save' | t: percent: savings_pct }}</span>
+            <span class="pack-tile__bottom-badge">
+              <img src="{{ 'icon-reload.svg' | asset_url }}" alt="" width="16" height="16" class="pack-tile__badge-icon" aria-hidden="true">
+              <span>{{ 'products.pack_selector.save' | t: percent: savings_pct }}</span>
+            </span>
           {%- elsif forloop.first -%}
             <span class="pack-tile__bottom-badge pack-tile__bottom-badge--standard">{{ 'products.pack_selector.standard' | t }}</span>
           {%- else -%}
-            <span class="pack-tile__bottom-badge">{{ 'products.pack_selector.best_value' | t }}</span>
+            <span class="pack-tile__bottom-badge">
+              <img src="{{ 'icon-reload.svg' | asset_url }}" alt="" width="16" height="16" class="pack-tile__badge-icon" aria-hidden="true">
+              <span>{{ 'products.pack_selector.best_value' | t }}</span>
+            </span>
           {%- endif -%}
         </button>
       {%- endfor -%}
@@ -98,41 +118,51 @@
         data-price="2000"
         aria-pressed="true"
       >
-        <span class="pack-tile__name">{% if settings.theme_skin == 'skin-2' %}1 Bottle{% else %}1 Bag{% endif %}</span>
+        <span class="pack-tile__name">1-Pack</span>
         <div class="pack-tile__price-group">
           <span class="pack-tile__price">{% if settings.theme_skin == 'skin-2' %}$29{% else %}$20{% endif %}</span>
-          <span class="pack-tile__unit-price">{% if settings.theme_skin == 'skin-2' %}$0.96 / day{% else %}$0.58 / cup{% endif %}</span>
+          <span class="pack-tile__unit-price">{% if settings.theme_skin == 'skin-2' %}$29.00/ea{% else %}$20.00/ea{% endif %}</span>
         </div>
         <span class="pack-tile__bottom-badge pack-tile__bottom-badge--standard">Standard</span>
       </button>
 
       <button
         type="button"
-        class="pack-tile"
-        data-price="3600"
+        class="pack-tile pack-tile--popular"
+        data-price="3800"
         aria-pressed="false"
       >
-        <span class="pack-tile__floating-badge">Most Popular</span>
-        <span class="pack-tile__name">{% if settings.theme_skin == 'skin-2' %}2 Bottles{% else %}2 Bags{% endif %}</span>
+        <span class="pack-tile__floating-badge">
+          <img src="{{ 'icon-reload.svg' | asset_url }}" alt="" width="16" height="16" class="pack-tile__badge-icon pack-tile__badge-icon--dark" aria-hidden="true">
+          <img src="{{ 'icon-reload-white.svg' | asset_url }}" alt="" width="16" height="16" class="pack-tile__badge-icon pack-tile__badge-icon--light" aria-hidden="true">
+          <span>Popular</span>
+        </span>
+        <span class="pack-tile__name">2-Pack</span>
         <div class="pack-tile__price-group">
-          <span class="pack-tile__price">{% if settings.theme_skin == 'skin-2' %}$52{% else %}$36{% endif %}</span>
-          <span class="pack-tile__unit-price">{% if settings.theme_skin == 'skin-2' %}$0.86 / day{% else %}$0.52 / cup{% endif %}</span>
+          <span class="pack-tile__price">{% if settings.theme_skin == 'skin-2' %}$52{% else %}$38{% endif %}</span>
+          <span class="pack-tile__unit-price">{% if settings.theme_skin == 'skin-2' %}$26.00/ea{% else %}$17.00/ea{% endif %}</span>
         </div>
-        <span class="pack-tile__bottom-badge">Save 10%</span>
+        <span class="pack-tile__bottom-badge">
+          <img src="{{ 'icon-reload.svg' | asset_url }}" alt="" width="16" height="16" class="pack-tile__badge-icon pack-tile__badge-icon--dark" aria-hidden="true">
+          <span>Save 10%</span>
+        </span>
       </button>
 
       <button
         type="button"
         class="pack-tile"
-        data-price="4800"
+        data-price="4950"
         aria-pressed="false"
       >
-        <span class="pack-tile__name">{% if settings.theme_skin == 'skin-2' %}3 Bottles{% else %}3 Bags{% endif %}</span>
+        <span class="pack-tile__name">3-Pack</span>
         <div class="pack-tile__price-group">
-          <span class="pack-tile__price">{% if settings.theme_skin == 'skin-2' %}$69{% else %}$48{% endif %}</span>
-          <span class="pack-tile__unit-price">{% if settings.theme_skin == 'skin-2' %}$0.76 / day{% else %}$0.47 / cup{% endif %}</span>
+          <span class="pack-tile__price">{% if settings.theme_skin == 'skin-2' %}$69{% else %}$49.50{% endif %}</span>
+          <span class="pack-tile__unit-price">{% if settings.theme_skin == 'skin-2' %}$23.00/ea{% else %}$16.50/ea{% endif %}</span>
         </div>
-        <span class="pack-tile__bottom-badge">Save 20%</span>
+        <span class="pack-tile__bottom-badge">
+          <img src="{{ 'icon-reload.svg' | asset_url }}" alt="" width="16" height="16" class="pack-tile__badge-icon pack-tile__badge-icon--dark" aria-hidden="true">
+          <span>Save 20%</span>
+        </span>
       </button>
     </div>
   </pack-selector>
@@ -150,7 +180,7 @@
       "type": "text",
       "id": "tier_2_badge",
       "label": "t:cro.labels.tier_2_badge",
-      "default": "Most Popular"
+      "default": "Popular"
     },
     {
       "type": "checkbox",

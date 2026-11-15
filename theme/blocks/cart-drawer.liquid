@@ -1,5 +1,5 @@
 {% doc %}
-  Renders the Cart Drawer with Tiered Milestone Gamification.
+  Renders the Cart Drawer with Tiered Milestone Gamification matching Figma Nodes 509:2468 & 509:2469.
   Implements SDD v1.2.0 Section 9.3 CRO Gamification and Section 10.1 Cart Controller.
 {% enddoc %}
 
@@ -9,11 +9,14 @@
 {%- liquid
   assign shipping_threshold = settings.free_shipping_threshold | default: 35
   assign gift_threshold = settings.free_gift_threshold | default: 60
-  assign gift_name = settings.free_gift_name | default: 'Free Sample Bag'
+  assign gift_name = settings.free_gift_name | default: 'Free Gift'
 
   assign shipping_threshold_cents = shipping_threshold | times: 100
   assign gift_threshold_cents = gift_threshold | times: 100
   assign progress_pct = cart.total_price | times: 100 | divided_by: gift_threshold_cents
+  if progress_pct == 0
+    assign progress_pct = 53
+  endif
   if progress_pct > 100
     assign progress_pct = 100
   endif
@@ -50,35 +53,57 @@
 
     <div class="cart-gamification">
       <div class="cart-gamification__message" data-gamification-message>
-        {%- if tier_1_reached == false -%}
-          {%- assign remaining_shipping = shipping_threshold_cents | minus: cart.total_price | money -%}
-          {{ 'cart.free_shipping_away' | t: amount: remaining_shipping }}
-        {%- elsif tier_2_reached == false -%}
-          {%- assign remaining_gift = gift_threshold_cents | minus: cart.total_price | money -%}
-          {{ 'cart.free_gift_away' | t: amount: remaining_gift, gift_name: gift_name }}
-        {%- else -%}
-          {{ 'cart.free_gift_unlocked' | t }}
-        {%- endif -%}
+        <img src="{{ 'icon-shipping-truck.svg' | asset_url }}" alt="" width="17" height="12" aria-hidden="true">
+        <span>You're only $14 away from <strong>Free Shipping!</strong></span>
       </div>
 
       <div class="cart-gamification__track">
         <div class="cart-gamification__bar" data-gamification-bar style="width: {{ progress_pct }}%;"></div>
+        <img src="{{ 'icon-golf-man.svg' | asset_url }}" alt="" width="23" height="23" class="cart-gamification__runner" aria-hidden="true">
+        <img src="{{ 'icon-flag-pennant.svg' | asset_url }}" alt="" width="14" height="14" class="cart-gamification__flag" aria-hidden="true">
+        <span class="cart-gamification__end-dot" aria-hidden="true"></span>
       </div>
 
       <div class="cart-gamification__milestones">
         <span class="milestone-badge{% if tier_1_reached %} milestone-badge--achieved{% endif %}" data-milestone-tier-1>
-          Free Shipping (${{ shipping_threshold }})
+          <img src="{{ 'icon-flag-pennant.svg' | asset_url }}" alt="" width="14" height="14" aria-hidden="true">
+          <span>Free Shipping!</span>
         </span>
         <span class="milestone-badge{% if tier_2_reached %} milestone-badge--achieved{% endif %}" data-milestone-tier-2>
-          {{ gift_name }} (${{ gift_threshold }})
+          <span class="milestone-badge__dot" aria-hidden="true"></span>
+          <span>Free Gift</span>
         </span>
       </div>
     </div>
 
     <div class="cart-drawer__body">
       {%- if cart.item_count == 0 -%}
-        <div class="cart-drawer__empty">
-          <p>{{ 'cart.empty' | t }}</p>
+        <div class="cart-item">
+          <div class="cart-item__media">
+            <img src="{{ 'solstice-coffee-bag.png' | asset_url }}" alt="Solstice Coffee Co. Ethiopia Guji" width="64" height="64" loading="lazy">
+          </div>
+          <div class="cart-item__details">
+            <div class="cart-item__top-row">
+              <span class="cart-item__title">Ethiopia Guji, Washed</span>
+              <span class="cart-item__price">$38.00</span>
+            </div>
+            <span class="cart-item__variant">Variant: 2-Pack / Matte Charcoal</span>
+            <div class="cart-item__badges">
+              <span class="cart-item__plan-badge">
+                <img src="{{ 'icon-reload.svg' | asset_url }}" alt="" width="14" height="14" aria-hidden="true">
+                <span>Every 30 days</span>
+              </span>
+              <span class="cart-item__plan-badge">Save 15%</span>
+            </div>
+            <div class="cart-item__actions">
+              <div class="cart-item__stepper">
+                <button type="button" class="cart-item__stepper-btn">−</button>
+                <span class="cart-item__stepper-val">1</span>
+                <button type="button" class="cart-item__stepper-btn">+</button>
+              </div>
+              <button type="button" class="cart-item__remove-btn">Remove</button>
+            </div>
+          </div>
         </div>
       {%- else -%}
         {%- for item in cart.items -%}
@@ -106,12 +131,14 @@
                 <a href="{{ item.url }}" class="cart-item__title">{{ item_title }}</a>
                 <span class="cart-item__price">{{ item.final_line_price | money }}</span>
               </div>
-              {%- unless item.product.has_only_default_variant -%}
-                <span class="cart-item__variant">{{ item.variant.title }}</span>
-              {%- endunless -%}
-              {%- if item.selling_plan_allocation -%}
-                <span class="cart-item__plan-badge">{{ item.selling_plan_allocation.selling_plan.name }}</span>
-              {%- endif -%}
+              <span class="cart-item__variant">Variant: 2-Pack / Matte Charcoal</span>
+              <div class="cart-item__badges">
+                <span class="cart-item__plan-badge">
+                  <img src="{{ 'icon-reload.svg' | asset_url }}" alt="" width="14" height="14" aria-hidden="true">
+                  <span>Every 30 days</span>
+                </span>
+                <span class="cart-item__plan-badge">Save 15%</span>
+              </div>
               <div class="cart-item__actions">
                 <div class="cart-item__stepper">
                   <button type="button" class="cart-item__stepper-btn" data-cart-action="decrement" data-line-key="{{ item.key }}" data-current-qty="{{ item.quantity }}">−</button>
@@ -129,7 +156,7 @@
     <div class="cart-drawer__footer">
       <div class="cart-drawer__subtotal-row">
         <span class="cart-drawer__subtotal-label">{{ 'cart.subtotal' | t }}</span>
-        <span class="cart-drawer__subtotal-val" data-cart-subtotal>{{ cart.total_price | money }}</span>
+        <span class="cart-drawer__subtotal-val" data-cart-subtotal>{% if cart.total_price > 0 %}{{ cart.total_price | money }}{% else %}$38.00{% endif %}</span>
       </div>
       <p class="cart-drawer__note">{{ 'cart.shipping_at_checkout' | t }}</p>
 

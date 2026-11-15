@@ -1,10 +1,9 @@
 {% comment %}
-  Renders the storefront index / featured flagship PDP showcase.
-  Implements the full high-fidelity Figma PDP on the root URL.
+  Renders the storefront index / featured flagship PDP showcase matching Figma Node 491:112.
 {% endcomment %}
 
 {% block 'container' %}
-  <div class="product-layout">
+  <div class="pdp-page-frame">
     <div class="product-visual-column">
       {% block 'product-gallery' %}{% endblock %}
     </div>
@@ -22,16 +21,6 @@
         {% block 'pack-selector' %}{% endblock %}
 
         {% block 'subscription-toggle' %}{% endblock %}
-
-        <div class="product-form">
-          <button
-            type="button"
-            class="product-form__submit btn-primary"
-            data-cart-trigger
-          >
-            Add to cart
-          </button>
-        </div>
       </div>
 
       <div class="transparency-zone">
@@ -50,17 +39,17 @@
         {% block 'complementary-products' %}{% endblock %}
       </div>
     </div>
+
+    <div class="pdp-social-proof">
+      {% block 'testimonials' %}{% endblock %}
+
+      {% block 'influencer-section' %}{% endblock %}
+
+      {% block 'reviews-section' %}{% endblock %}
+    </div>
+
+    {% block 'sticky-add-to-cart' %}{% endblock %}
   </div>
-
-  <div class="pdp-social-proof">
-    {% block 'testimonials' %}{% endblock %}
-
-    {% block 'influencer-section' %}{% endblock %}
-
-    {% block 'reviews-section' %}{% endblock %}
-  </div>
-
-  {% block 'sticky-add-to-cart' %}{% endblock %}
 {% endblock %}
 
 <script src="{{ 'anim-scrubber.js' | asset_url }}" defer="defer"></script>

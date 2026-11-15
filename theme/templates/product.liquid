@@ -1,7 +1,7 @@
 {% block 'container' %}
   {% render 'product-data-island', product: product %}
 
-  <div class="product-layout">
+  <div class="pdp-page-frame">
     <div class="product-visual-column">
       {% block 'product-gallery' %}{% endblock %}
     </div>
@@ -20,7 +20,7 @@
 
         {% block 'subscription-toggle' %}{% endblock %}
 
-        <product-form-controller class="product-form">
+        <product-form-controller class="product-form sr-only">
           {% form 'product', product, id: 'MainProductForm' %}
             {% assign current_variant = product.selected_or_first_available_variant %}
 
@@ -38,7 +38,6 @@
             >
               {{ 'products.add_to_cart' | t }}
             </button>
-            {{ form | payment_button }}
           {% endform %}
         </product-form-controller>
       </div>
@@ -59,17 +58,17 @@
         {% block 'complementary-products' %}{% endblock %}
       </div>
     </div>
+
+    <div class="pdp-social-proof">
+      {% block 'testimonials' %}{% endblock %}
+
+      {% block 'influencer-section' %}{% endblock %}
+
+      {% block 'reviews-section' %}{% endblock %}
+    </div>
+
+    {% block 'sticky-add-to-cart' %}{% endblock %}
   </div>
-
-  <div class="pdp-social-proof">
-    {% block 'testimonials' %}{% endblock %}
-
-    {% block 'influencer-section' %}{% endblock %}
-
-    {% block 'reviews-section' %}{% endblock %}
-  </div>
-
-  {% block 'sticky-add-to-cart' %}{% endblock %}
 {% endblock %}
 
 <script src="{{ 'component-product-form.js' | asset_url }}" defer="defer"></script>

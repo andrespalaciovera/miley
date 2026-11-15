@@ -67,36 +67,7 @@ class StickyAddToCart extends HTMLElement {
   }
 
   setupIntersectionObserver() {
-    const primaryAtc = document.querySelector('[data-primary-atc]') || document.querySelector('form[action*="/cart/add"] [type="submit"]');
-    if (!primaryAtc) {
-      // If no primary ATC found on page, keep bar visible
-      this.classList.add('sticky-atc--visible');
-      return;
-    }
-
-    this.observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          // When primary ATC is in viewport, hide sticky bar. When scrolled past, show it.
-          if (entry.isIntersecting) {
-            this.classList.remove('sticky-atc--visible');
-          } else {
-            // Only show if scrolled past the element (boundingClientRect.top < 0)
-            if (entry.boundingClientRect.top < 0) {
-              this.classList.add('sticky-atc--visible');
-            } else {
-              this.classList.remove('sticky-atc--visible');
-            }
-          }
-        });
-      },
-      {
-        root: null,
-        threshold: 0.1,
-      }
-    );
-
-    this.observer.observe(primaryAtc);
+    this.classList.add('sticky-atc--visible');
   }
 
   onVariantChange(event) {

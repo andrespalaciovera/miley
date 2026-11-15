@@ -1,6 +1,6 @@
 {% doc %}
-  Renders the Collapsible FAQ Accordion matching Figma Node 491:999.
-  Native semantic HTML details/summary elements for accessible disclosure.
+  Renders the Collapsible FAQ Accordion matching Figma Node 491:999 & 470:803.
+  Native semantic HTML details/summary elements for accessible disclosure (collapsed by default per Figma 491:999).
 {% enddoc %}
 
 <div class="faq-accordion-box" {{ block.shopify_attributes }}>
@@ -10,7 +10,7 @@
   </div>
 
   <div class="faq-accordion-list">
-    <details class="faq-item" open>
+    <details class="faq-item">
       <summary class="faq-summary">
         <span class="faq-question">
           {%- if settings.theme_skin == 'skin-2' -%}
@@ -45,7 +45,7 @@
         {%- if settings.theme_skin == 'skin-2' -%}
           No. Daily Focus Complex combines L-Theanine with natural caffeine in an ideal 2:1 ratio, providing laser-focused calm energy without jitters or crashes.
         {%- else -%}
-          Yes! You can pause, skip, swap bag sizes, or adjust delivery frequency (2, 4, or 6 weeks) anytime from your customer account portal with 1 click.
+          Yes! You can pause, skip, swap bag sizes, or adjust delivery frequency (2, 4, or 8 weeks) anytime from your customer account portal with 1 click.
         {%- endif -%}
       </div>
     </details>
