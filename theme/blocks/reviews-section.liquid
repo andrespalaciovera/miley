@@ -5,8 +5,8 @@
 
 <div class="reviews-section" {{ block.shopify_attributes }}>
   <div class="reviews-header">
-    <h2 class="reviews-title">What people are saying</h2>
-    <p class="reviews-subtitle">Real reviews from customers who’ve tried it.</p>
+    <h2 class="reviews-title">{{ 'products.reviews.title' | t }}</h2>
+    <p class="reviews-subtitle">{{ 'products.reviews.subtitle' | t }}</p>
   </div>
 
   <div class="reviews-layout">
@@ -16,7 +16,7 @@
           <div class="reviews-verified-badge-row">
             <span class="reviews-verified-badge">
               <img src="{{ 'icon-reload.svg' | asset_url }}" alt="" width="16" height="16" aria-hidden="true">
-              <span>Verified Reviews</span>
+              <span>{{ 'products.reviews.verified' | t }}</span>
             </span>
           </div>
 
@@ -30,7 +30,7 @@
                 <img src="{{ 'icon-star-filled.svg' | asset_url }}" alt="" width="15" height="14">
                 <img src="{{ 'icon-star-half.svg' | asset_url }}" alt="" width="15" height="14">
               </div>
-              <span class="reviews-total-count">Based on 128 reviews</span>
+              <span class="reviews-total-count">{{ 'products.reviews.based_on' | t: count: 128 }}</span>
             </div>
           </div>
 
@@ -65,18 +65,18 @@
 
         <button type="button" class="reviews-write-btn">
           <img src="{{ 'icon-write-review.svg' | asset_url }}" alt="" width="16" height="17" aria-hidden="true">
-          <span>Write a review</span>
+          <span>{{ 'products.reviews.write_review' | t }}</span>
         </button>
       </div>
 
       <div class="reviews-media-strip">
         <div class="reviews-media-header">
           <div class="reviews-media-title-group">
-            <span class="reviews-media-title">Customer Photos &amp; Videos</span>
+            <span class="reviews-media-title">{{ 'products.reviews.customer_media' | t }}</span>
             <span class="reviews-media-count">18</span>
           </div>
           <button type="button" class="reviews-media-all-btn">
-            <span>View all</span>
+            <span>{{ 'products.reviews.view_all' | t }}</span>
             <svg width="5" height="8" viewBox="0 0 5 8" fill="none" aria-hidden="true">
               <path d="M1 1L4 4L1 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>

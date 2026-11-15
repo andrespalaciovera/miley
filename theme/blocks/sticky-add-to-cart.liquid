@@ -41,15 +41,15 @@
 
     <div class="sticky-atc__top-row">
       <span class="sticky-atc__selection" data-sticky-title>2 Packs - Every month</span>
-      <button type="button" class="sticky-atc__edit-btn" onclick="window.scrollTo({top: 480, behavior: 'smooth'})">
+      <button type="button" class="sticky-atc__edit-btn">
         <img src="{{ 'icon-pencil.svg' | asset_url }}" alt="" width="12" height="12" aria-hidden="true">
-        <span>Edit</span>
+        <span>{{ 'products.edit' | t }}</span>
       </button>
     </div>
 
     <div class="sticky-atc__bottom-row">
       <div class="sticky-atc__price-box">
-        <span class="sticky-atc__price-label">TOTAL</span>
+        <span class="sticky-atc__price-label">{{ 'products.total' | t }}</span>
         <span class="sticky-atc__price-value" data-sticky-price>{{ display_price }}</span>
       </div>
 
@@ -58,11 +58,11 @@
         class="sticky-atc__btn"
         data-sticky-atc-btn
         data-cart-trigger
-        data-label-atc="Add to Cart"
+        data-label-atc="{{ 'products.add_to_cart' | t }}"
         data-label-sold-out="{{ 'products.sold_out' | t }}"
       >
         <img src="{{ 'icon-atc-bag.svg' | asset_url }}" alt="" width="14" height="16" aria-hidden="true">
-        <span>Add to Cart</span>
+        <span>{{ 'products.add_to_cart' | t }}</span>
       </button>
     </div>
   </div>

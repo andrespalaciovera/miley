@@ -52,6 +52,10 @@ class StickyAddToCart extends HTMLElement {
     if (this.observer) {
       this.observer.disconnect();
     }
+    if (this._desktopCleanup) {
+      this._desktopCleanup();
+      this._desktopCleanup = null;
+    }
     if (this.editBtn) {
       this.editBtn.removeEventListener('click', this.onEditClick);
     }

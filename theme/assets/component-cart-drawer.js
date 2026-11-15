@@ -16,6 +16,7 @@ class CartDrawer extends HTMLElement {
     this.close = this.close.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onCartUpdated = this.onCartUpdated.bind(this);
+    this.onDocumentClick = this.onDocumentClick.bind(this);
   }
 
   connectedCallback() {
@@ -36,13 +37,8 @@ class CartDrawer extends HTMLElement {
     this.unsubClose = window.ThemeEvents?.subscribe('theme:cart:close', this.close);
     this.unsubUpdate = window.ThemeEvents?.subscribe('theme:cart:updated', this.onCartUpdated);
 
-    // Global cart triggers
-    document.querySelectorAll('[data-cart-trigger]').forEach((el) => {
-      el.addEventListener('click', (e) => {
-        e.preventDefault();
-        this.open();
-      });
-    });
+    // Delegated document click for [data-cart-trigger] and [data-quick-add]
+    document.addEventListener('click', this.onDocumentClick);
 
     // Delegate quantity changes & removal
     if (this.bodyEl) {
@@ -71,7 +67,59 @@ class CartDrawer extends HTMLElement {
     if (typeof this.unsubOpen === 'function') this.unsubOpen();
     if (typeof this.unsubClose === 'function') this.unsubClose();
     if (typeof this.unsubUpdate === 'function') this.unsubUpdate();
+    document.removeEventListener('click', this.onDocumentClick);
     document.removeEventListener('keydown', this.onKeyDown);
+  }
+
+  async onDocumentClick(e) {
+    const trigger = e.target.closest('[data-cart-trigger]');
+    if (trigger) {
+      e.preventDefault();
+      this.open();
+      return;
+    }
+
+    const quickAddBtn = e.target.closest('[data-quick-add]');
+    if (!quickAddBtn) return;
+
+    e.preventDefault();
+    const variantId = quickAddBtn.getAttribute('data-variant-id');
+    if (!variantId) {
+      this.open();
+      return;
+    }
+
+    quickAddBtn.disabled = true;
+    try {
+      const addRes = await fetch('/cart/add.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({ items: [{ id: Number(variantId), quantity: 1 }] }),
+      });
+
+      if (addRes.ok) {
+        const cartRes = await fetch('/cart.js', { headers: { Accept: 'application/json' } });
+        if (cartRes.ok) {
+          const cartData = await cartRes.json();
+          window.ThemeEvents?.publish('theme:cart:updated', {
+            cart: cartData,
+            itemCount: cartData.item_count,
+            totalPrice: cartData.total_price,
+            formattedTotalPrice: window.Shopify?.formatMoney
+              ? window.Shopify.formatMoney(cartData.total_price)
+              : `$${(cartData.total_price / 100).toFixed(2)}`,
+          });
+        }
+      }
+      this.open();
+    } catch {
+      this.open();
+    } finally {
+      quickAddBtn.disabled = false;
+    }
   }
 
   open() {

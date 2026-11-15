@@ -53,12 +53,16 @@
     <div class="product-gallery__thumbs">
       {%- if use_product_media -%}
         {%- for media in product.media limit: 3 -%}
+          {%- capture thumb_full_srcset -%}
+            {{ media | image_url: width: 360 }} 360w, {{ media | image_url: width: 540 }} 540w, {{ media | image_url: width: 720 }} 720w, {{ media | image_url: width: 960 }} 960w, {{ media | image_url: width: 1200 }} 1200w
+          {%- endcapture -%}
           <button
             type="button"
             class="product-gallery__thumb{% if forloop.first %} product-gallery__thumb--active{% endif %}"
-            aria-label="View photo {{ forloop.index }}"
+            aria-label="{{ 'products.gallery.view_photo' | t: index: forloop.index }}"
             aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
             data-full-src="{{ media | image_url: width: 1200 }}"
+            data-full-srcset="{{ thumb_full_srcset | strip }}"
             data-alt="{{ media.alt | default: product.title | escape }}"
           >
             {{
@@ -75,7 +79,7 @@
         <button
           type="button"
           class="product-gallery__thumb product-gallery__thumb--active"
-          aria-label="View photo 1"
+          aria-label="{{ 'products.gallery.view_photo' | t: index: 1 }}"
           aria-current="true"
           data-full-src="{{ main_img | asset_url }}"
         >
@@ -84,7 +88,7 @@
         <button
           type="button"
           class="product-gallery__thumb"
-          aria-label="View photo 2"
+          aria-label="{{ 'products.gallery.view_photo' | t: index: 2 }}"
           aria-current="false"
           data-full-src="{{ main_img | asset_url }}"
         >
@@ -93,7 +97,7 @@
         <button
           type="button"
           class="product-gallery__thumb"
-          aria-label="View photo 3"
+          aria-label="{{ 'products.gallery.view_photo' | t: index: 3 }}"
           aria-current="false"
           data-full-src="{{ main_img | asset_url }}"
         >
@@ -104,11 +108,17 @@
   </div>
 
   <div class="product-gallery__indicators" aria-hidden="true">
-    <span class="gallery-dot gallery-dot--active"></span>
-    <span class="gallery-dot"></span>
-    <span class="gallery-dot"></span>
-    <span class="gallery-dot"></span>
-    <span class="gallery-dot"></span>
+    {%- if use_product_media -%}
+      {%- for media in product.media limit: 5 -%}
+        <span class="gallery-dot{% if forloop.first %} gallery-dot--active{% endif %}"></span>
+      {%- endfor -%}
+    {%- else -%}
+      <span class="gallery-dot gallery-dot--active"></span>
+      <span class="gallery-dot"></span>
+      <span class="gallery-dot"></span>
+      <span class="gallery-dot"></span>
+      <span class="gallery-dot"></span>
+    {%- endif -%}
   </div>
 </product-gallery>
 

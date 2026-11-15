@@ -14,12 +14,13 @@
 
 <div class="complementary-products-section" {{ block.shopify_attributes }}>
   <div class="complementary-header">
-    <span class="complementary-title">You may also like</span>
+    <span class="complementary-title">{{ 'products.complementary.title' | t }}</span>
   </div>
 
   <div class="complementary-cards-scroll">
     {%- if has_recs -%}
       {%- for card_product in rec_products limit: 3 -%}
+        {%- assign card_price = card_product.price | money_without_trailing_zeros -%}
         <div class="complementary-card">
           <div class="complementary-card__media">
             {%- if card_product.featured_media -%}
@@ -50,7 +51,7 @@
           </div>
 
           <button type="button" class="complementary-card__atc" data-quick-add data-variant-id="{{ card_product.selected_or_first_available_variant.id }}">
-            Add for {{ card_product.price | money_without_trailing_zeros }}
+            {{ 'products.complementary.add_for' | t: price: card_price }}
           </button>
         </div>
       {%- endfor -%}
@@ -84,9 +85,9 @@
 
           <button type="button" class="complementary-card__atc" data-quick-add>
             {%- if settings.theme_skin == 'skin-2' -%}
-              Add for $14
+              {{ 'products.complementary.add_for' | t: price: '$14' }}
             {%- else -%}
-              Add for $9
+              {{ 'products.complementary.add_for' | t: price: '$9' }}
             {%- endif -%}
           </button>
         </div>

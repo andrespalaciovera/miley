@@ -77,6 +77,22 @@
     "quantity": "Quantity",
     "total": "TOTAL",
     "edit": "Edit",
+    "gallery": {
+      "view_photo": "View photo {{ index }}"
+    },
+    "complementary": {
+      "title": "You may also like",
+      "add_for": "Add for {{ price }}"
+    },
+    "reviews": {
+      "title": "What people are saying",
+      "subtitle": "Real reviews from customers who’ve tried it.",
+      "verified": "Verified Reviews",
+      "based_on": "Based on {{ count }} reviews",
+      "write_review": "Write a review",
+      "customer_media": "Customer Photos & Videos",
+      "view_all": "View all"
+    },
     "pack_selector": {
       "standard": "Standard",
       "popular": "Popular",
